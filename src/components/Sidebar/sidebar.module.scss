@@ -1,0 +1,29 @@
+.sidebar {
+  position: relative;
+  padding: 1.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  flex: 20%;
+  .organization {
+    gap: .5rem;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .sidebarHighLight {
+    cursor: pointer;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      border-color: var(--text-green);
+      background: hsl(180, 60%, 91%);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.container {
+  position: relative;
+  display: flex;
+  height: 100vh;
+
+
+  .dashboard {
+    position: relative;
+    flex: 80%;
+  }
+}
