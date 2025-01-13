@@ -1,6 +1,6 @@
 import "./login.scss";
-import lendsqrIcon from "../assets/lendsqr.svg";
-import pabloSignIn from "../assets/pablo-sign-in.svg";
+import lendsqrIcon from "../../assets/lendsqr.svg";
+import pabloSignIn from "../../assets/pablo-sign-in.svg";
 
 const Login = () => {
   return (

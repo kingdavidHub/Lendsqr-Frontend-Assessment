@@ -1,5 +1,7 @@
 .navbar {
   display: flex;
+  position: relative;
+  z-index: 999;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
@@ -8,6 +10,7 @@
 
   .logo {
     flex-shrink: 0;
+    align-items: start;
   }
 
   .searchContainer {

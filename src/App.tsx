@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Login from "./Login/Login";
-import Dashboard from "./Dashboard/Dashboard";
+import Login from "./pages/Login/Login";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
+import { ToggleProvider } from "./context/ToggleContext";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/dashboard",
@@ -15,11 +16,15 @@ const router = createBrowserRouter([
         <Navbar />
         <Dashboard />
       </>
-    )
-  }
-])
+    ),
+  },
+]);
 
 const App = () => {
-  return <RouterProvider router={router} />
-}
-export default App
+  return (
+    <ToggleProvider>
+      <RouterProvider router={router} />
+    </ToggleProvider>
+  );
+};
+export default App;

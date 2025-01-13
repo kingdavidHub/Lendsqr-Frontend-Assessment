@@ -5,25 +5,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  overflow-y: scroll;
-  overflow-x: hidden;
 
   flex: 20%;
   .organization {
-    gap: .5rem;
+    gap: 0.5rem;
     align-items: center;
     justify-content: start;
   }
 
   .sidebarHighLight {
     cursor: pointer;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     border-left: 3px solid transparent;
 
     &:hover {
       border-color: var(--text-green);
       background: hsl(180, 60%, 91%);
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    background: #fff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 9;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+
+    &.active {
+      transform: translateX(0); 
     }
   }
 }
