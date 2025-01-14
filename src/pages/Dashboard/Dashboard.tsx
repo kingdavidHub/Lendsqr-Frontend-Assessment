@@ -73,129 +73,129 @@ const Dashboard = () => {
       <Helmet>
         <title>Lendsqr Dashboard</title>
       </Helmet>
-      <section>
-        <div className={classNames(styles.container)}>
-          <Sidebar />
-
-          <div className={styles.dashboard}>
-            <h1>Users</h1>
-            <div className={styles.metrics}>
-              {metrics.map((metric, index) => (
-                <div className={styles.metriCard} key={index}>
-                  <span className="icon">{metric.icon}</span>
-                  <h3>{metric.title}</h3>
-                  <p>{metric.count}</p>
-                </div>
-              ))}
+      <div className={styles.dashboard}>
+        <h1>Users</h1>
+        <div className={styles.metrics}>
+          {metrics.map((metric, index) => (
+            <div className={styles.metriCard} key={index}>
+              <span className="icon">{metric.icon}</span>
+              <h3>{metric.title}</h3>
+              <p>{metric.count}</p>
             </div>
+          ))}
+        </div>
 
-            <div className={styles.tableWrapper}>
-              <div className={styles.tableContainer}>
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      <div className="flex gap-1">
-                        <span>ORGANIZATION</span>{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="flex gap-1">
-                        USERNAME{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="flex gap-1">
-                        EMAIL{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="flex gap-1">
-                        PHONE{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="flex gap-1">
-                        <span style={{
-                          width: "5rem"
-                        }}>DATE JOINED</span>{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th>
-                      <div className="flex gap-1">
-                        STATUS{" "}
-                        <button>
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
-                      </div>
-                    </th>
-                    <th
-                    style={{
-                      textAlign: "right"
-                    }}
-                    >Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paginatedData?.map((user, index) => (
-                    <tr key={index}>
-                      <td>{user.organization}</td>
-                      <td>{user.username}</td>
-                      <td>{user.email}</td>
-                      <td>{user.phone}</td>
-                      <td>{user.dateJoined}</td>
-                      <td>
-                        <span
-                          className={classNames(
-                            styles.status,
-                            `${user.status.toLowerCase()}`
-                          )}
-                        >
-                          {user.status}
-                        </span>
-                      </td>
-                      <td
-                       style={{
-                        textAlign: "right"
-                      }}
+        <div className={styles.tableWrapper}>
+          <div className={styles.tableContainer}>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <div className="flex gap-1">
+                      <span>ORGANIZATION</span>{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="flex gap-1">
+                      USERNAME{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="flex gap-1">
+                      EMAIL{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="flex gap-1">
+                      PHONE{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="flex gap-1">
+                      <span
+                        style={{
+                          width: "5rem",
+                        }}
                       >
-                        <button className={styles.moreBtn}>
-                          <MoreVertical size={16} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              </div>
-            </div>
+                        DATE JOINED
+                      </span>{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="flex gap-1">
+                      STATUS{" "}
+                      <button>
+                        <ListFilter size="1rem" color="#545F7D" />
+                      </button>
+                    </div>
+                  </th>
+                  <th
+                    style={{
+                      textAlign: "right",
+                    }}
+                  >
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData?.map((user, index) => (
+                  <tr key={index}>
+                    <td>{user.organization}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.phone}</td>
+                    <td>{user.dateJoined}</td>
+                    <td>
+                      <span
+                        className={classNames(
+                          styles.status,
+                          `${user.status.toLowerCase()}`
+                        )}
+                      >
+                        {user.status}
+                      </span>
+                    </td>
+                    <td
+                      style={{
+                        textAlign: "right",
+                      }}
+                    >
+                      <button className={styles.moreBtn}>
+                        <MoreVertical size={16} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-            {/* Pagination control */}
-            {/* <PaginationComp
+        {/* Pagination control */}
+        {/* <PaginationComp
               currentPage={currentPage}
               ranges={ranges}
               setCurrentPage={setCurrentPage}
               setCurrentRange={setCurrentRange}
               totalPages={totalPages}
             /> */}
-          </div>
-        </div>
-      </section>
+      </div>
     </>
   );
 };

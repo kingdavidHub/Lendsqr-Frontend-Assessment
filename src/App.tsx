@@ -3,6 +3,18 @@ import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
 import { ToggleProvider } from "./context/ToggleContext";
+import Sidebar from "./components/Sidebar/Sidebar";
+
+const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
+  return (
+    <>
+      <Navbar />
+      <section>
+        <div className="container">{children}</div>
+      </section>
+    </>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -12,13 +24,24 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <>
-        <Navbar />
+      <Layout>
+        <Sidebar />
         <Dashboard />
-      </>
+      </Layout>
+    ),
+  },
+  {
+    path: "/user/details",
+    element: (
+      <Layout>
+        <Sidebar />
+        
+      </Layout>
     ),
   },
 ]);
+
+
 
 const App = () => {
   return (

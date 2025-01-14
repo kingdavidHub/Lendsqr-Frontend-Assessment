@@ -30,6 +30,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.container {
+  position: relative;
+  display: flex;
+}
+
 img,
 picture,
 video,
