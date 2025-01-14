@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
+import ReactPaginate from "react-paginate";
 
 const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
@@ -88,13 +89,14 @@ const Dashboard = () => {
               ))}
             </div>
 
-            <div className={styles.tableContainer}>
+            <div className={styles.tableWrapper}>
+              <div className={styles.tableContainer}>
               <table>
                 <thead>
                   <tr>
                     <th>
                       <div className="flex gap-1">
-                        ORGANIZATION{" "}
+                        <span>ORGANIZATION</span>{" "}
                         <button>
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
@@ -142,7 +144,11 @@ const Dashboard = () => {
                         </button>
                       </div>
                     </th>
-                    <th></th>
+                    <th
+                    style={{
+                      textAlign: "right"
+                    }}
+                    >Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -163,7 +169,11 @@ const Dashboard = () => {
                           {user.status}
                         </span>
                       </td>
-                      <td>
+                      <td
+                       style={{
+                        textAlign: "right"
+                      }}
+                      >
                         <button className={styles.moreBtn}>
                           <MoreVertical size={16} />
                         </button>
@@ -172,6 +182,7 @@ const Dashboard = () => {
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
 
             {/* Pagination control */}
@@ -196,6 +207,9 @@ const PaginationComp = ({
   currentPage,
   totalPages,
 }: PaginationProps) => {
+  const handlePageClick = (data: { selected: number }) => {
+    setCurrentPage(data.selected + 1);
+  };
   return (
     <div className={classNames(styles.pagination, "padding-1")}>
       <div className="flexCenter gap-1">
