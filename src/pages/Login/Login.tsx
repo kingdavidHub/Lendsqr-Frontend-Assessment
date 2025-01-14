@@ -1,10 +1,15 @@
 import "./login.scss";
 import lendsqrIcon from "../../assets/lendsqr.svg";
 import pabloSignIn from "../../assets/pablo-sign-in.svg";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   return (
-    <section>
+    <>
+    <Helmet>
+      <title>Login</title>
+    </Helmet>
+      <section>
       <div className="login-container">
         <div className="innerWidth login-wrapper"></div>
         {/* right section */}
@@ -48,6 +53,7 @@ const Login = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 export default Login;

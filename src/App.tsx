@@ -6,7 +6,7 @@ import { ToggleProvider } from "./context/ToggleContext";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
   },
   {
