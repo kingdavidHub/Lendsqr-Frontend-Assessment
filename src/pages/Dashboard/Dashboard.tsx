@@ -2,9 +2,9 @@ import styles from "./dashboard.module.scss";
 import classNames from "classnames";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { ListFilter, MoreVertical } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { UserRecord } from "../../types";
+import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
 
 const Dashboard = () => {
@@ -66,11 +66,11 @@ const Dashboard = () => {
 
     fetchRecord();
   }, []);
-  
+
   return (
     <>
       <Helmet>
-        <title>Lendsqr Dashboar</title>
+        <title>Lendsqr Dashboard</title>
       </Helmet>
       <section>
         <div className={classNames(styles.container)}>
@@ -126,7 +126,9 @@ const Dashboard = () => {
                     </th>
                     <th>
                       <div className="flex gap-1">
-                        DATE JOINED{" "}
+                        <span style={{
+                          width: "5rem"
+                        }}>DATE JOINED</span>{" "}
                         <button>
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
@@ -140,6 +142,7 @@ const Dashboard = () => {
                         </button>
                       </div>
                     </th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -171,61 +174,78 @@ const Dashboard = () => {
               </table>
             </div>
 
-            <div className={classNames(styles.pagination, "padding-1")}>
-              <div className="flexCenter gap-1">
-                <span>Showing</span>
-                <select
-                  id="rangeSelect"
-                  className={styles.perPage}
-                  onChange={(e) => {
-                    setCurrentRange(ranges[parseInt(e.target.value)]);
-                    setCurrentPage(1);
-                  }}
-                >
-                  {ranges.map((_, index) => (
-                    <option key={index} value={index}>
-                      {`${index * 100}-${index * 100 + 99}`}
-                    </option>
-                  ))}
-                </select>
-
-                <span>out of 100</span>
-              </div>
-              <div className={styles.pageNumbers}>
-                <button
-                  className={styles.prev}
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                >
-                  ←
-                </button>
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentPage(index + 1)}
-                    //TODO: This class should be active on the button that is currently selected
-                    className={currentPage === index + 1 ? "active" : ""}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-                <button
-                  className="next"
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                >
-                  →
-                </button>
-              </div>
-            </div>
+            {/* Pagination control */}
+            {/* <PaginationComp
+              currentPage={currentPage}
+              ranges={ranges}
+              setCurrentPage={setCurrentPage}
+              setCurrentRange={setCurrentRange}
+              totalPages={totalPages}
+            /> */}
           </div>
         </div>
       </section>
     </>
+  );
+};
+
+const PaginationComp = ({
+  setCurrentRange,
+  setCurrentPage,
+  ranges,
+  currentPage,
+  totalPages,
+}: PaginationProps) => {
+  return (
+    <div className={classNames(styles.pagination, "padding-1")}>
+      <div className="flexCenter gap-1">
+        <span>Showing</span>
+        <select
+          id="rangeSelect"
+          className={styles.perPage}
+          onChange={(e) => {
+            setCurrentRange(ranges[parseInt(e.target.value)]);
+            setCurrentPage(1);
+          }}
+        >
+          {ranges.map((_, index) => (
+            <option key={index} value={index}>
+              {`${index * 100}-${index * 100 + 99}`}
+            </option>
+          ))}
+        </select>
+
+        <span>out of 100</span>
+      </div>
+      <div className={styles.pageNumbers}>
+        <button
+          className={styles.prev}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          ←
+        </button>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentPage(index + 1)}
+            //TODO: This class should be active on the button that is currently selected
+            className={currentPage === index + 1 ? "active" : ""}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button
+          className="next"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          →
+        </button>
+      </div>
+    </div>
   );
 };
 

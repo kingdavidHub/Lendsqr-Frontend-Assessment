@@ -64,12 +64,13 @@
           color: #545f7d;
           font-size: 0.75rem;
           font-weight: 600;
-          padding: 1rem;
+          padding: .5rem;
           text-transform: uppercase;
+          width: 15%;
         }
 
         td {
-          padding: 1rem;
+          padding: .5rem;
           color: #545f7d;
           font-size: 0.875rem;
           background: white;
@@ -166,5 +167,17 @@
   .dashboard {
     width: 100%;
     padding: 1rem;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+
+    table {
+      th {
+        div {
+          flex-direction: column;
+        }
+      }
+    }
   }
 }

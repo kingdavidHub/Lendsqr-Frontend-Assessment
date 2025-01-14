@@ -26,3 +26,11 @@ export type UserRecord = {
   dateJoined: string;
   status: string;
 };
+
+export interface PaginationProps {
+  setCurrentRange: React.Dispatch<React.SetStateAction<UserRecord[] | null>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  ranges: UserRecord[][];
+  currentPage: number;
+  totalPages: number;
+}
