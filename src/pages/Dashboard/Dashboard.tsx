@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
   const [currentPage, setCurrentPage] = useState(5);
   const [isFilterActive, setIsFilterActive] = useState(false);
-  const [activeUserId, setActiveUserId] = useState<number | null>(null);
+  const [activeUserId, setActiveUserId] = useState<string | null>(null);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil((currentRange?.length || 0) / itemsPerPage);
@@ -71,7 +71,7 @@ const Dashboard = () => {
         // const response: UserRecord[] = await data.json();
         const data = testData;
         const response: UserRecord[] = data.map((user) => ({
-          userId: user.id,
+          userId: user.id.toString(),
           organization: "Unknown",
           username: user.username,
           email: user.email,
@@ -309,8 +309,8 @@ const PaginatedData = ({
   setActiveUserId,
 }: {
   user: UserRecord;
-  activeUserId: number | null;
-  setActiveUserId: (id: number | null) => void;
+  activeUserId: string | null;
+  setActiveUserId: (id: string | null) => void;
 }) => {
   const isActionsActive = activeUserId === user.userId;
   const handleClickAway = () => {
@@ -358,7 +358,7 @@ const PaginatedData = ({
           {isActionsActive && (
             <ClickAwayListener onClickAway={handleClickAway}>
               <div>
-                <TableActions userId={1} />
+                <TableActions userId={activeUserId} />
               </div>
             </ClickAwayListener>
           )}

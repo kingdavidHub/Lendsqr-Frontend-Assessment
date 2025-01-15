@@ -4,10 +4,22 @@ import { IoStar } from "react-icons/io5";
 import styles from "./UserDetails.module.scss";
 import classNames from "classnames";
 import { IoIosStarOutline } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { Helmet } from "react-helmet-async";
+import useUserDetailsStorage from "../../hooks/useUserDetailsStorage";
+import { UserRecord } from "../../types";
 
 const UserDetails = () => {
+  const userId: string | undefined = useParams()?.id;
+  const userDetails: UserRecord | undefined = useUserDetailsStorage(userId);
+  // const fullName = `${userDetails?.firstName} ${userDetails?.lastName}`;
+  // const matchedID: string | undefined = userDetails ? userDetails.userId : undefined;
+  // console.log(matchedID);
+  const gender: "male" | "female" = "male";
+  console.log(userDetails);
+  
+  
+
   const [activeTab, setActiveTab] = useState("General Details");
 
   const tabs = [
@@ -122,11 +134,11 @@ const UserDetails = () => {
               </div>
               <div className={styles.infoItem}>
                 <label>PHONE NUMBER</label>
-                <p>07060780922</p>
+                <p>{userDetails?.phone}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>EMAIL ADDRESS</label>
-                <p>grace@gmail.com</p>
+                <p>{userDetails?.email}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>BVN</label>

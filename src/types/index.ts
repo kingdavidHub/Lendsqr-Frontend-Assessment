@@ -19,7 +19,7 @@ export type TableHeaderProps = {
 };
 
 export type UserRecord = {
-  userId: number;
+  userId: string;
   organization: string;
   username: string;
   email: string;
