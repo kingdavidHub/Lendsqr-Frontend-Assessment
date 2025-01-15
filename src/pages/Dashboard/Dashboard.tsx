@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
   const [ranges, setRanges] = useState<UserRecord[][]>([]);
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
-  const [currentPage, setCurrentPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [activeUserId, setActiveUserId] = useState<string | null>(null);
 
@@ -70,6 +70,8 @@ const Dashboard = () => {
         // });
         // const response: UserRecord[] = await data.json();
         const data = testData;
+        console.log(data);
+        
         const response: UserRecord[] = data.map((user) => ({
           userId: user.id.toString(),
           organization: "Unknown",
@@ -92,9 +94,12 @@ const Dashboard = () => {
           chunked.push(response.slice(i, i + 100));
         }
 
+
+        console.log(chunked);
+
         setData(response); // Complete dataset
         setRanges(chunked); // Chunked ranges
-        setCurrentRange(chunked[0] || []); // Set default range to first chunk
+        setCurrentRange(chunked[0]); // Set default range to first chunk
 
         return response;
       } catch (error) {
@@ -225,13 +230,13 @@ const Dashboard = () => {
         </div>
 
         {/* Pagination control */}
-        {/* <PaginationComp
-              currentPage={currentPage}
-              ranges={ranges}
-              setCurrentPage={setCurrentPage}
-              setCurrentRange={setCurrentRange}
-              totalPages={totalPages}
-            /> */}
+        <PaginationComp
+          currentPage={currentPage}
+          ranges={ranges}
+          setCurrentPage={setCurrentPage}
+          setCurrentRange={setCurrentRange}
+          totalPages={totalPages}
+        />
       </div>
     </>
   );
