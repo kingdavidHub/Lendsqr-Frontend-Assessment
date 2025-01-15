@@ -7,12 +7,17 @@ import { Helmet } from "react-helmet-async";
 import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
 import ReactPaginate from "react-paginate";
+import FilterTable from "../../components/FilterForm/FilterForm";
+import FilterForm from "../../components/FilterForm/FilterForm";
+import TableActions from "../../components/TableActions/TableActions";
 
 const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
   const [ranges, setRanges] = useState<UserRecord[][]>([]);
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
   const [currentPage, setCurrentPage] = useState(5);
+  const [isFilterActive, setIsFilterActive] = useState(false);
+  const [activeUserId, setActiveUserId] = useState<number | null>(null);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil((currentRange?.length || 0) / itemsPerPage);
@@ -20,6 +25,10 @@ const Dashboard = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const filterActive = () => {
+    setIsFilterActive(!isFilterActive);
+  };
 
   const metrics = [
     { title: "USERS", count: "2,453", icon: "👥" },
@@ -39,6 +48,7 @@ const Dashboard = () => {
         // const response: UserRecord[] = await data.json();
         const data = testData;
         const response: UserRecord[] = data.map((user) => ({
+          userId: user.id,
           organization: "Unknown",
           username: user.username,
           email: user.email,
@@ -87,109 +97,94 @@ const Dashboard = () => {
           ))}
         </div>
 
-        <div className={styles.tableWrapper}>
-          <div className={styles.tableContainer}>
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    <div className="flex gap-1">
-                      <span>ORGANIZATION</span>{" "}
-                      <button aria-label="Filter by organization">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="flex gap-1">
-                      USERNAME{" "}
-                      <button aria-label="Filter by username">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="flex gap-1">
-                      EMAIL{" "}
-                      <button aria-label="Filter by email">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="flex gap-1">
-                      PHONE{" "}
-                      <button aria-label="Filter by phone">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="flex gap-1">
-                      <span
-                        style={{
-                          width: "5rem",
-                        }}
-                      >
-                        DATE JOINED
-                      </span>{" "}
-                      <button aria-label="Filter by date joined">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="flex gap-1">
-                      STATUS{" "}
-                      <button aria-label="Filter by status">
-                        <ListFilter size="1rem" color="#545F7D" />
-                      </button>
-                    </div>
-                  </th>
-                  <th
-                    style={{
-                      textAlign: "right",
-                    }}
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData?.map((user, index) => (
-                  <tr key={index}>
-                    <td>{user.organization}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.dateJoined}</td>
-                    <td>
-                      <span
-                        className={classNames(
-                          styles.status,
-                          `${user.status.toLowerCase()}`
-                        )}
-                      >
-                        {user.status}
-                      </span>
-                    </td>
-                    <td
+        <div className={styles.filterContainer}>
+          <div className={styles.tableWrapper}>
+            <div className={styles.tableContainer}>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <div className="flex gap-1">
+                        <span>ORGANIZATION</span>{" "}
+                        <button
+                          aria-label="Filter by organization"
+                          onClick={filterActive}
+                        >
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className="flex gap-1">
+                        USERNAME{" "}
+                        <button aria-label="Filter by username">
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className="flex gap-1">
+                        EMAIL{" "}
+                        <button aria-label="Filter by email">
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className="flex gap-1">
+                        PHONE{" "}
+                        <button aria-label="Filter by phone">
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className="flex gap-1">
+                        <span
+                          style={{
+                            width: "5rem",
+                          }}
+                        >
+                          DATE JOINED
+                        </span>{" "}
+                        <button aria-label="Filter by date joined">
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className="flex gap-1">
+                        STATUS{" "}
+                        <button aria-label="Filter by status">
+                          <ListFilter size="1rem" color="#545F7D" />
+                        </button>
+                      </div>
+                    </th>
+                    <th
                       style={{
                         textAlign: "right",
                       }}
                     >
-                      <button
-                        className={styles.moreBtn}
-                        aria-label="More actions"
-                      >
-                        <MoreVertical size={16} />
-                      </button>
-                    </td>
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {paginatedData?.map((user) => (
+                    <PaginatedData
+                      key={user.userId}
+                      user={user}
+                      activeUserId={activeUserId}
+                      setActiveUserId={setActiveUserId}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {isFilterActive && <FilterForm />}
+          {/* <TableActions userId={1} /> */}
         </div>
 
         {/* Pagination control */}
@@ -268,6 +263,57 @@ const PaginationComp = ({
         </button>
       </div>
     </div>
+  );
+};
+
+const PaginatedData = ({
+  user,
+  activeUserId,
+  setActiveUserId,
+}: {
+  user: UserRecord;
+  activeUserId: number | null;
+  setActiveUserId: (id: number | null) => void;
+}) => {
+  const isActionsActive = activeUserId === user.userId;
+  return (
+    <>
+      <tr>
+        <td>{user.organization}</td>
+        <td>{user.username}</td>
+        <td>{user.email}</td>
+        <td>{user.phone}</td>
+        <td>{user.dateJoined}</td>
+        <td>
+          <span
+            className={classNames(
+              styles.status,
+              `${user.status.toLowerCase()}`
+            )}
+          >
+            {user.status}
+          </span>
+        </td>
+        <td
+          style={{
+            textAlign: "right",
+          }}
+          className={classNames(styles.actions)}
+        >
+          <button
+            className={styles.moreBtn}
+            aria-label="More actions"
+            onClick={() =>
+              setActiveUserId(isActionsActive ? null : user.userId)
+            }
+          >
+            <MoreVertical size={16} />
+          </button>
+
+          {isActionsActive && <TableActions userId={user.userId} />}
+        </td>
+      </tr>
+    </>
   );
 };
 

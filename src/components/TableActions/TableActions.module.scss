@@ -1,0 +1,27 @@
+.actionsWrapper {
+  position: absolute;
+  background: #ffffff;
+
+  .actionsContainer {
+    position: absolute;
+    min-width: 9rem;
+    right: -5rem;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .tableActions {
+    .actionItem {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .actionsContainer {
+    padding: 1rem;
+  }
+}
