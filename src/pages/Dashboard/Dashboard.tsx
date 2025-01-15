@@ -1,7 +1,7 @@
 import styles from "./dashboard.module.scss";
 import classNames from "classnames";
 import { ListFilter, MoreVertical } from "lucide-react";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
