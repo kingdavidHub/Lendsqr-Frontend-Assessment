@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import styles from "./TableActions.module.scss";
-import { Eye } from "lucide-react";
+import { Eye, UserRoundCheck, UserX } from "lucide-react";
 import classNames from "classnames";
 
 const TableActions = ({ userId }: { userId: number }) => {
@@ -16,13 +16,13 @@ const TableActions = ({ userId }: { userId: number }) => {
           </Link>
           <Link to={`/user/details`}>
             <div className={styles.actionItem}>
-              <Eye size={16} className={styles.icon} />
+              <UserX size={16} className={styles.icon} />
               <span>Blacklist User</span>
             </div>
           </Link>
           <Link to={`/user/details`}>
             <div className={styles.actionItem}>
-              <Eye size={16} className={styles.icon} />
+              <UserRoundCheck size={16} className={styles.icon} />
               <span>Activate User</span>
             </div>
           </Link>

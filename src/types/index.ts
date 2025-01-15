@@ -25,7 +25,7 @@ export type UserRecord = {
   email: string;
   phone: string;
   dateJoined: string;
-  status: string;
+  status: "active" | "inactive" | "blacklisted" | "pending";
 };
 
 export interface PaginationProps {

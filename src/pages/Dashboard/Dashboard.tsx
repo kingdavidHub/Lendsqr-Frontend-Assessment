@@ -1,15 +1,18 @@
 import styles from "./dashboard.module.scss";
 import classNames from "classnames";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import { ListFilter, MoreVertical } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
 import ReactPaginate from "react-paginate";
-import FilterTable from "../../components/FilterForm/FilterForm";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import TableActions from "../../components/TableActions/TableActions";
+import ClickAwayListener from "react-click-away-listener";
+import MetricUser from "../../assets/metric/metricsUser.svg";
+import ActiveUser from "../../assets/metric/activeUser.svg";
+import UserLoan from "../../assets/metric/userLoan.svg";
+import UserSavings from "../../assets/metric/userSavings.svg";
 
 const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
@@ -31,10 +34,30 @@ const Dashboard = () => {
   };
 
   const metrics = [
-    { title: "USERS", count: "2,453", icon: "👥" },
-    { title: "ACTIVE USERS", count: "2,453", icon: "✨" },
-    { title: "USERS WITH LOANS", count: "12,453", icon: "💰" },
-    { title: "USERS WITH SAVINGS", count: "102,453", icon: "💳" },
+    {
+      title: "USERS",
+      count: "2,453",
+      icon: MetricUser,
+      backgroundCol: "rgb(223 24 255 / 21%)",
+    },
+    {
+      title: "ACTIVE USERS",
+      count: "2,453",
+      icon: ActiveUser,
+      backgroundCol: "rgb(87 24 255 / 21%)",
+    },
+    {
+      title: "USERS WITH LOANS",
+      count: "12,453",
+      icon: UserLoan,
+      backgroundCol: "rgb(245 95 68 / 21%)",
+    },
+    {
+      title: "USERS WITH SAVINGS",
+      count: "102,453",
+      icon: UserSavings,
+      backgroundCol: "rgb(255 51 102 / 21%)",
+    },
   ];
 
   useEffect(() => {
@@ -54,7 +77,11 @@ const Dashboard = () => {
           email: user.email,
           phone: user.phone_number,
           dateJoined: user.date_joined,
-          status: user.status,
+          status: user.status as
+            | "active"
+            | "inactive"
+            | "blacklisted"
+            | "pending",
         }));
 
         localStorage.setItem("usersRecord", JSON.stringify(response));
@@ -88,9 +115,19 @@ const Dashboard = () => {
         <div className={styles.metrics}>
           {metrics.map((metric, index) => (
             <div className={styles.metriCard} key={index}>
-              <span className="icon" aria-label={metric.title}>
-                {metric.icon}
-              </span>
+              <div
+                style={{
+                  backgroundColor: metric.backgroundCol,
+                  display: "inline-block",
+                  padding: ".7rem",
+                  borderRadius: "50%",
+                }}
+                className="flexCenter"
+              >
+                <span className="icon" aria-label={metric.title}>
+                  <img src={metric.icon} alt="users metric icon" />
+                </span>
+              </div>
               <h3>{metric.title}</h3>
               <p>{metric.count}</p>
             </div>
@@ -276,6 +313,10 @@ const PaginatedData = ({
   setActiveUserId: (id: number | null) => void;
 }) => {
   const isActionsActive = activeUserId === user.userId;
+  const handleClickAway = () => {
+    setActiveUserId(null);
+  };
+
   return (
     <>
       <tr>
@@ -287,6 +328,10 @@ const PaginatedData = ({
         <td>
           <span
             className={classNames(
+              user.status.toLowerCase() === "active" && styles.active,
+              user.status.toLowerCase() === "inactive" && styles.inactive,
+              user.status.toLowerCase() === "blacklisted" && styles.blacklisted,
+              user.status.toLowerCase() === "pending" && styles.pending,
               styles.status,
               `${user.status.toLowerCase()}`
             )}
@@ -310,7 +355,13 @@ const PaginatedData = ({
             <MoreVertical size={16} />
           </button>
 
-          {isActionsActive && <TableActions userId={user.userId} />}
+          {isActionsActive && (
+            <ClickAwayListener onClickAway={handleClickAway}>
+              <div>
+                <TableActions userId={1} />
+              </div>
+            </ClickAwayListener>
+          )}
         </td>
       </tr>
     </>
