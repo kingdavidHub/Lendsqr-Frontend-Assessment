@@ -1,18 +1,14 @@
 import styles from "./dashboard.module.scss";
-import classNames from "classnames";
-import { ListFilter, MoreVertical } from "lucide-react";
+import { ListFilter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { PaginationProps, UserRecord } from "../../types";
 import { testData } from "./data";
-import ReactPaginate from "react-paginate";
 import FilterForm from "../../components/FilterForm/FilterForm";
-import TableActions from "../../components/TableActions/TableActions";
 import ClickAwayListener from "react-click-away-listener";
-import MetricUser from "../../assets/metric/metricsUser.svg";
-import ActiveUser from "../../assets/metric/activeUser.svg";
-import UserLoan from "../../assets/metric/userLoan.svg";
-import UserSavings from "../../assets/metric/userSavings.svg";
+import PaginationComp from "../../components/PaginationComp/PaginationComp";
+import PaginatedData from "../../components/PaginatedData/PaginatedData";
+import metrics from "./metrics";
+import { UserRecord } from "../../types";
 
 const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
@@ -32,33 +28,11 @@ const Dashboard = () => {
   const filterActive = () => {
     setIsFilterActive(!isFilterActive);
   };
+  const handleClickAway = () => {
+    setIsFilterActive(false);
+  };
 
-  const metrics = [
-    {
-      title: "USERS",
-      count: "2,453",
-      icon: MetricUser,
-      backgroundCol: "rgb(223 24 255 / 21%)",
-    },
-    {
-      title: "ACTIVE USERS",
-      count: "2,453",
-      icon: ActiveUser,
-      backgroundCol: "rgb(87 24 255 / 21%)",
-    },
-    {
-      title: "USERS WITH LOANS",
-      count: "12,453",
-      icon: UserLoan,
-      backgroundCol: "rgb(245 95 68 / 21%)",
-    },
-    {
-      title: "USERS WITH SAVINGS",
-      count: "102,453",
-      icon: UserSavings,
-      backgroundCol: "rgb(255 51 102 / 21%)",
-    },
-  ];
+
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -71,7 +45,7 @@ const Dashboard = () => {
         // const response: UserRecord[] = await data.json();
         const data = testData;
         console.log(data);
-        
+
         const response: UserRecord[] = data.map((user) => ({
           userId: user.id.toString(),
           organization: "Unknown",
@@ -93,7 +67,6 @@ const Dashboard = () => {
         for (let i = 0; i < response.length; i += 100) {
           chunked.push(response.slice(i, i + 100));
         }
-
 
         console.log(chunked);
 
@@ -225,8 +198,13 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {isFilterActive && <FilterForm />}
-          {/* <TableActions userId={1} /> */}
+          {isFilterActive && (
+            <ClickAwayListener onClickAway={handleClickAway}>
+              <div>
+              { isFilterActive && <FilterForm />}
+              </div>
+            </ClickAwayListener>
+          )}
         </div>
 
         {/* Pagination control */}
@@ -242,135 +220,7 @@ const Dashboard = () => {
   );
 };
 
-const PaginationComp = ({
-  setCurrentRange,
-  setCurrentPage,
-  ranges,
-  currentPage,
-  totalPages,
-}: PaginationProps) => {
-  const handlePageClick = (data: { selected: number }) => {
-    setCurrentPage(data.selected + 1);
-  };
-  return (
-    <div className={classNames(styles.pagination, "padding-1")}>
-      <div className="flexCenter gap-1">
-        <span>Showing</span>
-        <select
-          id="rangeSelect"
-          className={styles.perPage}
-          onChange={(e) => {
-            setCurrentRange(ranges[parseInt(e.target.value)]);
-            setCurrentPage(1);
-          }}
-        >
-          {ranges.map((_, index) => (
-            <option key={index} value={index}>
-              {`${index * 100}-${index * 100 + 99}`}
-            </option>
-          ))}
-        </select>
 
-        <span>out of 100</span>
-      </div>
-      <div className={styles.pageNumbers}>
-        <button
-          className={styles.prev}
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          aria-label="Previous page"
-        >
-          ←
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(index + 1)}
-            //TODO: This class should be active on the button that is currently selected
-            className={currentPage === index + 1 ? "active" : ""}
-            aria-label={`Page ${index + 1}`}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          className="next"
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
-          disabled={currentPage === totalPages}
-          aria-label="Next page"
-        >
-          →
-        </button>
-      </div>
-    </div>
-  );
-};
 
-const PaginatedData = ({
-  user,
-  activeUserId,
-  setActiveUserId,
-}: {
-  user: UserRecord;
-  activeUserId: string | null;
-  setActiveUserId: (id: string | null) => void;
-}) => {
-  const isActionsActive = activeUserId === user.userId;
-  const handleClickAway = () => {
-    setActiveUserId(null);
-  };
-
-  return (
-    <>
-      <tr>
-        <td>{user.organization}</td>
-        <td>{user.username}</td>
-        <td>{user.email}</td>
-        <td>{user.phone}</td>
-        <td>{user.dateJoined}</td>
-        <td>
-          <span
-            className={classNames(
-              user.status.toLowerCase() === "active" && styles.active,
-              user.status.toLowerCase() === "inactive" && styles.inactive,
-              user.status.toLowerCase() === "blacklisted" && styles.blacklisted,
-              user.status.toLowerCase() === "pending" && styles.pending,
-              styles.status,
-              `${user.status.toLowerCase()}`
-            )}
-          >
-            {user.status}
-          </span>
-        </td>
-        <td
-          style={{
-            textAlign: "right",
-          }}
-          className={classNames(styles.actions)}
-        >
-          <button
-            className={styles.moreBtn}
-            aria-label="More actions"
-            onClick={() =>
-              setActiveUserId(isActionsActive ? null : user.userId)
-            }
-          >
-            <MoreVertical size={16} />
-          </button>
-
-          {isActionsActive && (
-            <ClickAwayListener onClickAway={handleClickAway}>
-              <div>
-                <TableActions userId={activeUserId} />
-              </div>
-            </ClickAwayListener>
-          )}
-        </td>
-      </tr>
-    </>
-  );
-};
 
 export default Dashboard;
