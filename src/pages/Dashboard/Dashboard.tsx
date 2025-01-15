@@ -78,7 +78,9 @@ const Dashboard = () => {
         <div className={styles.metrics}>
           {metrics.map((metric, index) => (
             <div className={styles.metriCard} key={index}>
-              <span className="icon">{metric.icon}</span>
+              <span className="icon" aria-label={metric.title}>
+                {metric.icon}
+              </span>
               <h3>{metric.title}</h3>
               <p>{metric.count}</p>
             </div>
@@ -93,7 +95,7 @@ const Dashboard = () => {
                   <th>
                     <div className="flex gap-1">
                       <span>ORGANIZATION</span>{" "}
-                      <button>
+                      <button aria-label="Filter by organization">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -101,7 +103,7 @@ const Dashboard = () => {
                   <th>
                     <div className="flex gap-1">
                       USERNAME{" "}
-                      <button>
+                      <button aria-label="Filter by username">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -109,7 +111,7 @@ const Dashboard = () => {
                   <th>
                     <div className="flex gap-1">
                       EMAIL{" "}
-                      <button>
+                      <button aria-label="Filter by email">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -117,7 +119,7 @@ const Dashboard = () => {
                   <th>
                     <div className="flex gap-1">
                       PHONE{" "}
-                      <button>
+                      <button aria-label="Filter by phone">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -131,7 +133,7 @@ const Dashboard = () => {
                       >
                         DATE JOINED
                       </span>{" "}
-                      <button>
+                      <button aria-label="Filter by date joined">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -139,7 +141,7 @@ const Dashboard = () => {
                   <th>
                     <div className="flex gap-1">
                       STATUS{" "}
-                      <button>
+                      <button aria-label="Filter by status">
                         <ListFilter size="1rem" color="#545F7D" />
                       </button>
                     </div>
@@ -176,7 +178,10 @@ const Dashboard = () => {
                         textAlign: "right",
                       }}
                     >
-                      <button className={styles.moreBtn}>
+                      <button
+                        className={styles.moreBtn}
+                        aria-label="More actions"
+                      >
                         <MoreVertical size={16} />
                       </button>
                     </td>
@@ -236,6 +241,7 @@ const PaginationComp = ({
           className={styles.prev}
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
+          aria-label="Previous page"
         >
           ←
         </button>
@@ -245,6 +251,7 @@ const PaginationComp = ({
             onClick={() => setCurrentPage(index + 1)}
             //TODO: This class should be active on the button that is currently selected
             className={currentPage === index + 1 ? "active" : ""}
+            aria-label={`Page ${index + 1}`}
           >
             {index + 1}
           </button>
@@ -255,6 +262,7 @@ const PaginationComp = ({
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           disabled={currentPage === totalPages}
+          aria-label="Next page"
         >
           →
         </button>

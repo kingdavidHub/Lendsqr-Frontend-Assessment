@@ -1,0 +1,274 @@
+.container {
+  padding: 2rem;
+  background: #fbfbfb;
+  flex: 80%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+
+  .backLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #545f7d;
+    text-decoration: none;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      color: #213f7d;
+    }
+  }
+
+  .headerActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      color: #213f7d;
+      font-size: 1.5rem;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      .blacklistBtn {
+        background: transparent;
+        border: 1px solid #e4033b;
+        color: #e4033b;
+      }
+
+      .activateBtn {
+        background: transparent;
+        border: 1px solid #39cdcc;
+        color: #39cdcc;
+      }
+    }
+  }
+}
+
+.profileCard {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+
+  .mainInfo {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .userInfo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: hsla(220, 58%, 31%, 0.158);
+      }
+
+      .nameSection {
+        h2 {
+          color: #213f7d;
+          font-size: 1.25rem;
+          margin-bottom: 0.25rem;
+        }
+
+        p {
+          color: #545f7d;
+          font-size: 0.875rem;
+        }
+      }
+    }
+
+    .userTier {
+      padding: 0 2rem;
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+
+      @media (max-width: 768px) {
+        border: none;
+        padding: 0;
+      }
+
+      p {
+        color: #545f7d;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .stars {
+        display: flex;
+        gap: 0.25rem;
+
+        .starFilled {
+          color: #e9b200;
+        }
+
+        .starHalf {
+          color: #e9b200;
+        }
+      }
+    }
+
+    .accountInfo {
+      h3 {
+        color: #213f7d;
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        color: #545f7d;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 2rem;
+    padding: 0 2rem;
+
+    .tab {
+      padding: 1rem 0;
+      color: #545f7d;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+
+      &.active {
+        color: #39cdcc;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: #39cdcc;
+        }
+      }
+
+      &:hover {
+        color: #39cdcc;
+      }
+    }
+  }
+}
+
+.detailsSection {
+  background: white;
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  section {
+    padding: 2rem 0;
+    border-bottom: 1px solid #e5e7eb;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    h3 {
+      color: #213f7d;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+
+    .infoItem {
+      label {
+        display: block;
+        color: #545f7d;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        color: #545f7d;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    .headerActions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+
+  .profileCard {
+    .mainInfo {
+      padding: 1rem;
+    }
+
+    .tabs {
+      padding: 0 1rem;
+    }
+  }
+
+  .detailsSection {
+    padding: 1rem;
+
+    section {
+      padding: 1rem 0;
+    }
+
+    .infoGrid {
+      gap: 1rem;
+    }
+  }
+}
