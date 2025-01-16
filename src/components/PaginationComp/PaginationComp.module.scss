@@ -4,11 +4,37 @@
   justify-content: space-between;
   margin-top: 1.5rem;
 
-  .perPage {
-    padding: 0.5rem;
-    border: 1px solid #545f7d;
-    border-radius: 4px;
-    color: #545f7d;
+  div:nth-child(1){
+    color: #213F7D;
+  }
+
+  .selectContainer {
+    position:  relative;
+    display: inline-block;
+    
+    .select {
+      width: 100%;
+      padding: .6rem 2.5rem;
+      padding-left: .9rem;
+      border: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #213F7D1A;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #213F7D;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: .5rem;
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -36,7 +62,7 @@
 
       &.prev,
       &.next {
-        background: #213F7D1A;
+        background: #213f7d1a;
         border-radius: 4px;
         display: inline-block;
         padding: 0.1rem;
