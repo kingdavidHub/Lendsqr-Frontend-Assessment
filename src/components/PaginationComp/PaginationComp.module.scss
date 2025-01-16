@@ -36,14 +36,15 @@
 
       &.prev,
       &.next {
-        border: 1px solid #545f7d;
+        background: #213F7D1A;
         border-radius: 4px;
         display: inline-block;
+        padding: 0.1rem;
       }
 
-      // &:hover:not(.active) {
-      //   background: rgba(33, 63, 125, 0.05);
-      // }
+      &:hover:not(.active) {
+        background: rgba(33, 63, 125, 0.05);
+      }
     }
   }
 }

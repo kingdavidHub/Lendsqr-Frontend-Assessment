@@ -22,6 +22,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+    errorElement: <Error />,
   },
   {
     path: "/dashboard",
@@ -40,11 +41,8 @@ const router = createBrowserRouter([
         <UserDetails />
       </Layout>
     ),
-    errorElement: <Error />,
   },
 ]);
-
-
 
 const App = () => {
   return (

@@ -35,9 +35,9 @@ const PaginationComp = ({
         <span>out of 100</span>
       </div>
         <ReactPaginate
-          previousLabel={<ChevronLeft />}
+          previousLabel={<ChevronLeft color="#213F7D"/>}
           previousLinkClassName={styles.prev}
-          nextLabel={<ChevronRight />}
+          nextLabel={<ChevronRight color="#213F7D"/>}
           nextLinkClassName={styles.next}
           breakLabel={"..."}
           pageCount={totalPages}
