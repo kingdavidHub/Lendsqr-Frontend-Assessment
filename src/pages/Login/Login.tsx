@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
 import styles from "./login.module.scss";
 import LendqrLogo from "../../assets/lendsqr.svg";
 import Illustration from "../../assets/pablo-sign-in.svg";

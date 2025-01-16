@@ -11,7 +11,7 @@ import metrics from "./metrics";
 import { UserRecord } from "../../types";
 
 const Dashboard = () => {
-  const [, setData] = useState<UserRecord[] | null>(null);
+  const [data, setData] = useState<UserRecord[] | null>(null);
   const [ranges, setRanges] = useState<UserRecord[][]>([]);
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,47 +37,53 @@ const Dashboard = () => {
 
     const fetchRecord = async (): Promise<UserRecord[]> => {
       try {
-        // const data = await fetch(`${apiUrl}`, {
-        //   method: "GET",
-        // });
-        // const response: UserRecord[] = await data.json();
-        const data = testData;
-        const response: UserRecord[] = data.map((user) => ({
-          id: user.id.toString(),
-          organization: user.organization as "lendsqr" | "irorun" | "lendstar",
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          email: user.email,
-          phone_number: user.phone_number,
-          date_joined: user.date_joined,
-          status: user.status as
-            | "active"
-            | "inactive"
-            | "blacklisted"
-            | "pending",
-          level_education: user.level_education,
-          guarantor: user.guarantor,
-          guarantor_number: user.guarantor_number,
-          guarantor_relationship: user.guarantor_relationship,
-          children: user.children,
-          gender: user.gender as "male" | "female",
-          marital_status: user.marital_status,
-          guarantor_email: user.guarantor_email,
-        }));
-
+        const data = await fetch(`${apiUrl}`, {
+          method: "GET",
+        });
+        const response: UserRecord[] = await data.json();
         localStorage.setItem("usersRecord", JSON.stringify(response));
 
-        // contains 100 records in each chunk array
-        const chunked: UserRecord[][] = [];
-        for (let i = 0; i < response.length; i += 100) {
-          chunked.push(response.slice(i, i + 100));
-        }
-        setData(response); // Complete dataset
-        setRanges(chunked); // Chunked ranges
-        setCurrentRange(chunked[0]); // Set default range to first chunk
+        if(!response || response.length === 0 || !localStorage.getItem("usersRecord")) {
+          throw new Error("No data found");
+        }else {
+          // const usersRecord: UserRecord[] = response.map((user) => ({
+          //   id: user.id.toString(),
+          //   organization: user.organization as "lendsqr" | "irorun" | "lendstar",
+          //   username: user.username,
+          //   first_name: user.first_name,
+          //   last_name: user.last_name,
+          //   email: user.email,
+          //   phone_number: user.phone_number,
+          //   date_joined: user.date_joined,
+          //   status: user.status as
+          //     | "active"
+          //     | "inactive"
+          //     | "blacklisted"
+          //     | "pending",
+          //   level_education: user.level_education,
+          //   guarantor: user.guarantor,
+          //   guarantor_number: user.guarantor_number,
+          //   guarantor_relationship: user.guarantor_relationship,
+          //   children: user.children,
+          //   gender: user.gender as "male" | "female",
+          //   marital_status: user.marital_status,
+          //   guarantor_email: user.guarantor_email,
+          // }));
+          setData(response);
 
-        return response;
+          const chunked: UserRecord[][] = [];
+          for (let i = 0; i < response.length; i += 100) {
+            chunked.push(response.slice(i, i + 100));
+          }
+          setData(response);
+          setRanges(chunked);
+          setCurrentRange(chunked[0]); // Set default range to first chunk
+  
+          return response;
+        }
+        
+
+
       } catch (error) {
         throw new Error("An error occurred while fetching data");
       }
