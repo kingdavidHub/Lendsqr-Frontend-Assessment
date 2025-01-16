@@ -78,7 +78,11 @@
 .form {
   .inputGroup {
     margin-bottom: 1.5rem;
-
+    
+    .formError {
+      color: red;
+    }
+    
     input {
       width: 100%;
       padding: 1rem;
@@ -87,6 +91,7 @@
       font-size: 1rem;
       color: #545f7d;
       transition: border-color 0.2s;
+
 
       &:focus {
         outline: none;
@@ -119,9 +124,9 @@
         cursor: pointer;
         padding: 0.5rem;
 
-        &:hover {
-          color: darken(#39cdcc, 10%);
-        }
+        // &:hover {
+        //   color: darken(#39cdcc, 10%);
+        // }
       }
     }
   }
@@ -151,9 +156,9 @@
     cursor: pointer;
     transition: background-color 0.2s;
 
-    &:hover {
-      background: darken(#39cdcc, 5%);
-    }
+    // &:hover {
+    //   background: darken(#39cdcc, 5%);
+    // }
 
     &:active {
       transform: translateY(1px);

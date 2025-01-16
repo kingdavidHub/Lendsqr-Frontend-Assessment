@@ -1,22 +1,23 @@
 import styles from "./dashboard.module.scss";
 import { ListFilter } from "lucide-react";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { testData } from "./data";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import ClickAwayListener from "react-click-away-listener";
 import PaginationComp from "../../components/PaginationComp/PaginationComp";
 import PaginatedData from "../../components/PaginatedData/PaginatedData";
 import metrics from "./metrics";
 import { UserRecord } from "../../types";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Dashboard = () => {
-  const [data, setData] = useState<UserRecord[] | null>(null);
+  const [, setData] = useState<UserRecord[] | null>(null);
   const [ranges, setRanges] = useState<UserRecord[][]>([]);
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [activeUserId, setActiveUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil((currentRange?.length || 0) / itemsPerPage);
@@ -34,18 +35,22 @@ const Dashboard = () => {
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
-
     const fetchRecord = async (): Promise<UserRecord[]> => {
       try {
+        setLoading(true);
         const data = await fetch(`${apiUrl}`, {
           method: "GET",
         });
         const response: UserRecord[] = await data.json();
         localStorage.setItem("usersRecord", JSON.stringify(response));
 
-        if(!response || response.length === 0 || !localStorage.getItem("usersRecord")) {
+        if (
+          !response ||
+          response.length === 0 ||
+          !localStorage.getItem("usersRecord")
+        ) {
           throw new Error("No data found");
-        }else {
+        } else {
           // const usersRecord: UserRecord[] = response.map((user) => ({
           //   id: user.id.toString(),
           //   organization: user.organization as "lendsqr" | "irorun" | "lendstar",
@@ -70,6 +75,7 @@ const Dashboard = () => {
           //   guarantor_email: user.guarantor_email,
           // }));
           setData(response);
+          setLoading(false);
 
           const chunked: UserRecord[][] = [];
           for (let i = 0; i < response.length; i += 100) {
@@ -78,12 +84,9 @@ const Dashboard = () => {
           setData(response);
           setRanges(chunked);
           setCurrentRange(chunked[0]); // Set default range to first chunk
-  
+
           return response;
         }
-        
-
-
       } catch (error) {
         throw new Error("An error occurred while fetching data");
       }
@@ -194,14 +197,24 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedData?.map((user) => (
-                    <PaginatedData
-                      key={user.id}
-                      user={user}
-                      activeUserId={activeUserId}
-                      setActiveUserId={setActiveUserId}
-                    />
-                  ))}
+                  {loading
+                    ? Array.from({ length: 10 }).map((_, index) => (
+                      <SkeletonTheme baseColor="#f0f0f0" highlightColor="#e0e0e0" key={index}>
+                        <tr key={index}>
+                          <td colSpan={7}>
+                            <Skeleton />
+                          </td>
+                        </tr>
+                      </SkeletonTheme>
+                      ))
+                    : paginatedData?.map((user) => (
+                        <PaginatedData
+                          key={user.id}
+                          user={user}
+                          activeUserId={activeUserId}
+                          setActiveUserId={setActiveUserId}
+                        />
+                      ))}
                 </tbody>
               </table>
             </div>
