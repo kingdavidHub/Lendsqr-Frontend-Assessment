@@ -32,7 +32,10 @@ export type UserRecord = {
   guarantor: string;
   guarantor_number: string;
   guarantor_relationship: string;
+  guarantor_email: string;
   children: number;
+  gender: "male" | "female";
+  marital_status: string
 };
 
 export interface PaginationProps {

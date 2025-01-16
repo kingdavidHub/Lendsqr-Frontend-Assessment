@@ -2,6 +2,7 @@ import classNames from "classnames";
 import styles from "./PaginationComp.module.scss"
 import { PaginationProps } from "../../types";
 import ReactPaginate from "react-paginate";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 const PaginationComp = ({
   setCurrentRange,
   setCurrentPage,
@@ -34,9 +35,9 @@ const PaginationComp = ({
         <span>out of 100</span>
       </div>
         <ReactPaginate
-          previousLabel={"←"}
+          previousLabel={<ChevronLeft />}
           previousLinkClassName={styles.prev}
-          nextLabel={"→"}
+          nextLabel={<ChevronRight />}
           nextLinkClassName={styles.next}
           breakLabel={"..."}
           pageCount={totalPages}

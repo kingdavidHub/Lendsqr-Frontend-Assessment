@@ -32,8 +32,6 @@ const Dashboard = () => {
     setIsFilterActive(false);
   };
 
-
-
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -62,7 +60,10 @@ const Dashboard = () => {
           guarantor: user.guarantor,
           guarantor_number: user.guarantor_number,
           guarantor_relationship: user.guarantor_relationship,
-          children: user.children
+          children: user.children,
+          gender: user.gender as "male" | "female",
+          marital_status: user.marital_status,
+          guarantor_email: user.guarantor_email,
         }));
 
         localStorage.setItem("usersRecord", JSON.stringify(response));
@@ -202,9 +203,7 @@ const Dashboard = () => {
 
           {isFilterActive && (
             <ClickAwayListener onClickAway={handleClickAway}>
-              <div>
-              { isFilterActive && <FilterForm />}
-              </div>
+              <div>{isFilterActive && <FilterForm />}</div>
             </ClickAwayListener>
           )}
         </div>
@@ -221,8 +220,5 @@ const Dashboard = () => {
     </>
   );
 };
-
-
-
 
 export default Dashboard;

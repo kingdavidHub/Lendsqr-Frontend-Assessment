@@ -6,7 +6,7 @@ const useUserDetailsStorage = (userId: string | undefined) => {
     ? JSON.parse(userStoredData)
     : null;
   const matchedData = userData?.find(
-    (user) => user.userId.toString() == userId
+    (user) => user.id == userId
   );
   return matchedData;
 };

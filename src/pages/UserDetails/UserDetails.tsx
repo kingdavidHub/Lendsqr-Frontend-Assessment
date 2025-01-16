@@ -12,13 +12,8 @@ import { UserRecord } from "../../types";
 const UserDetails = () => {
   const userId: string | undefined = useParams()?.id;
   const userDetails: UserRecord | undefined = useUserDetailsStorage(userId);
-  // const fullName = `${userDetails?.firstName} ${userDetails?.lastName}`;
-  // const matchedID: string | undefined = userDetails ? userDetails.userId : undefined;
-  // console.log(matchedID);
-  const gender: "male" | "female" = "male";
-  console.log(userDetails);
-  
-  
+  const fullName = `${userDetails?.first_name} ${userDetails?.last_name}`;
+  const twitter = `@${userDetails?.first_name}_${userDetails?.last_name}`;
 
   const [activeTab, setActiveTab] = useState("General Details");
 
@@ -76,7 +71,7 @@ const UserDetails = () => {
                 />
               </div>
               <div className={styles.nameSection}>
-                <h2>Grace Effiom</h2>
+                <h2>{fullName}</h2>
                 <p>LSQFf587g90</p>
               </div>
             </div>
@@ -130,7 +125,7 @@ const UserDetails = () => {
             <div className={styles.infoGrid}>
               <div className={styles.infoItem}>
                 <label>FULL NAME</label>
-                <p>Grace Effiom</p>
+                <p>{fullName}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>PHONE NUMBER</label>
@@ -146,15 +141,15 @@ const UserDetails = () => {
               </div>
               <div className={styles.infoItem}>
                 <label>GENDER</label>
-                <p>Female</p>
+                <p>{userDetails?.gender}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>MARITAL STATUS</label>
-                <p>Single</p>
+                <p>{userDetails?.marital_status}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>CHILDREN</label>
-                <p>None</p>
+                <p>{userDetails?.children}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>TYPE OF RESIDENCE</label>
@@ -168,7 +163,7 @@ const UserDetails = () => {
             <div className={styles.infoGrid}>
               <div className={styles.infoItem}>
                 <label>LEVEL OF EDUCATION</label>
-                <p>B.Sc</p>
+                <p>{userDetails?.level_education}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>EMPLOYMENT STATUS</label>
@@ -184,7 +179,7 @@ const UserDetails = () => {
               </div>
               <div className={styles.infoItem}>
                 <label>OFFICE EMAIL</label>
-                <p>grace@lendsqr.com</p>
+                <p>{userDetails?.first_name}@lendsqr.com</p>
               </div>
               <div className={styles.infoItem}>
                 <label>MONTHLY INCOME</label>
@@ -202,15 +197,15 @@ const UserDetails = () => {
             <div className={styles.infoGrid}>
               <div className={styles.infoItem}>
                 <label>TWITTER</label>
-                <p>@grace_effiom</p>
+                <p>{`@${userDetails?.first_name}_${userDetails?.last_name}`}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>FACEBOOK</label>
-                <p>Grace Effiom</p>
+                <p>{`@${userDetails?.first_name}_${userDetails?.last_name}`}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>INSTAGRAM</label>
-                <p>@grace_effiom</p>
+                <p>{`@${userDetails?.first_name}_${userDetails?.last_name}`}</p>
               </div>
             </div>
           </section>
@@ -220,19 +215,19 @@ const UserDetails = () => {
             <div className={styles.infoGrid}>
               <div className={styles.infoItem}>
                 <label>FULL NAME</label>
-                <p>Debby Ogana</p>
+                <p>{userDetails?.guarantor}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>PHONE NUMBER</label>
-                <p>07060780922</p>
+                <p>{userDetails?.guarantor_number}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>EMAIL ADDRESS</label>
-                <p>debby@gmail.com</p>
+                <p>{userDetails?.guarantor_email}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>RELATIONSHIP</label>
-                <p>Sister</p>
+                <p>{userDetails?.guarantor_relationship}</p>
               </div>
             </div>
           </section>
