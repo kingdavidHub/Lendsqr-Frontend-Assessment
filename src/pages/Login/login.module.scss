@@ -1,0 +1,162 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  background: #ffffff;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.leftSection {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+
+  .logo {
+    margin-bottom: 4rem;
+
+    .logoImage {
+      height: 36px;
+      width: auto;
+    }
+  }
+
+  .illustration {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .illustrationImage {
+      max-width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+.rightSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  background: #ffffff;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 450px;
+
+  h1 {
+    color: #213f7d;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #545f7d;
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.form {
+  .inputGroup {
+    margin-bottom: 1.5rem;
+
+    input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid rgba(84, 95, 125, 0.15);
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #545f7d;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #39cdcc;
+      }
+
+      &::placeholder {
+        color: #545f7d;
+        opacity: 0.6;
+      }
+    }
+
+    .passwordInput {
+      position: relative;
+
+      input {
+        padding-right: 5rem;
+      }
+
+      .showPassword {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #39cdcc;
+        font-weight: 600;
+        font-size: 0.75rem;
+        cursor: pointer;
+        padding: 0.5rem;
+
+        &:hover {
+          color: darken(#39cdcc, 10%);
+        }
+      }
+    }
+  }
+
+  .forgotPassword {
+    display: inline-block;
+    color: #39cdcc;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .loginButton {
+    width: 100%;
+    padding: 1rem;
+    background: #39cdcc;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: darken(#39cdcc, 5%);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
