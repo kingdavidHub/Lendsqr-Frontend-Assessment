@@ -2,9 +2,10 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./pages/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Navbar from "./components/Navbar/Navbar";
-import { ToggleProvider } from "./context/ToggleContext";
 import Sidebar from "./components/Sidebar/Sidebar";
 import UserDetails from "./pages/UserDetails/UserDetails";
+import Error from "./pages/Error/Error";
+import ToggleProvider from "./provider/ToggleProvider";
 
 const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
         <UserDetails />
       </Layout>
     ),
+    errorElement: <Error />,
   },
 ]);
 

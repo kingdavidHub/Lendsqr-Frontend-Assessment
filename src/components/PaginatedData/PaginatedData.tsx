@@ -14,7 +14,7 @@ const PaginatedData = ({
   activeUserId: string | null;
   setActiveUserId: (id: string | null) => void;
 }) => {
-  const isActionsActive = activeUserId === user.userId;
+  const isActionsActive = activeUserId === user.id;
   const handleClickAway = () => {
     setActiveUserId(null);
   };
@@ -25,8 +25,8 @@ const PaginatedData = ({
         <td>{user.organization}</td>
         <td>{user.username}</td>
         <td>{user.email}</td>
-        <td>{user.phone}</td>
-        <td>{user.dateJoined}</td>
+        <td>{user.phone_number}</td>
+        <td>{user.date_joined}</td>
         <td>
           <span
             className={classNames(
@@ -51,7 +51,7 @@ const PaginatedData = ({
             className={styles.moreBtn}
             aria-label="More actions"
             onClick={() =>
-              setActiveUserId(isActionsActive ? null : user.userId)
+              setActiveUserId(isActionsActive ? null : user.id)
             }
           >
             <MoreVertical size={16} />

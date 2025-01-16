@@ -35,7 +35,9 @@ const PaginationComp = ({
       </div>
         <ReactPaginate
           previousLabel={"←"}
+          previousLinkClassName={styles.prev}
           nextLabel={"→"}
+          nextLinkClassName={styles.next}
           breakLabel={"..."}
           pageCount={totalPages}
           marginPagesDisplayed={1}

@@ -134,7 +134,7 @@ const UserDetails = () => {
               </div>
               <div className={styles.infoItem}>
                 <label>PHONE NUMBER</label>
-                <p>{userDetails?.phone}</p>
+                <p>{userDetails?.phone_number}</p>
               </div>
               <div className={styles.infoItem}>
                 <label>EMAIL ADDRESS</label>

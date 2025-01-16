@@ -19,13 +19,20 @@ export type TableHeaderProps = {
 };
 
 export type UserRecord = {
-  userId: string;
-  organization: string;
+  id: string;
   username: string;
   email: string;
-  phone: string;
-  dateJoined: string;
+  organization: "lendsqr" | "irorun" | "lendstar";
+  phone_number: string;
+  date_joined: string;
   status: "active" | "inactive" | "blacklisted" | "pending";
+  first_name: string;
+  last_name: string;
+  level_education: string;
+  guarantor: string;
+  guarantor_number: string;
+  guarantor_relationship: string;
+  children: number;
 };
 
 export interface PaginationProps {

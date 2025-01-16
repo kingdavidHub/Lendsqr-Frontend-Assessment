@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Calendar } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import styles from "./FilterForm.module.scss";
 
 const FilterForm = () => {
@@ -91,7 +91,7 @@ const FilterForm = () => {
                   setFormData({ ...formData, date: e.target.value })
                 }
               />
-              <Calendar className={styles.calendarIcon} size={16} />
+              <CalendarDays className={styles.calendarIcon} size={16}  />
             </div>
           </div>
 

@@ -44,20 +44,25 @@ const Dashboard = () => {
         // });
         // const response: UserRecord[] = await data.json();
         const data = testData;
-        console.log(data);
-
         const response: UserRecord[] = data.map((user) => ({
-          userId: user.id.toString(),
-          organization: "Unknown",
+          id: user.id.toString(),
+          organization: user.organization as "lendsqr" | "irorun" | "lendstar",
           username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
           email: user.email,
-          phone: user.phone_number,
-          dateJoined: user.date_joined,
+          phone_number: user.phone_number,
+          date_joined: user.date_joined,
           status: user.status as
             | "active"
             | "inactive"
             | "blacklisted"
             | "pending",
+          level_education: user.level_education,
+          guarantor: user.guarantor,
+          guarantor_number: user.guarantor_number,
+          guarantor_relationship: user.guarantor_relationship,
+          children: user.children
         }));
 
         localStorage.setItem("usersRecord", JSON.stringify(response));
@@ -67,9 +72,6 @@ const Dashboard = () => {
         for (let i = 0; i < response.length; i += 100) {
           chunked.push(response.slice(i, i + 100));
         }
-
-        console.log(chunked);
-
         setData(response); // Complete dataset
         setRanges(chunked); // Chunked ranges
         setCurrentRange(chunked[0]); // Set default range to first chunk
@@ -187,7 +189,7 @@ const Dashboard = () => {
                 <tbody>
                   {paginatedData?.map((user) => (
                     <PaginatedData
-                      key={user.userId}
+                      key={user.id}
                       user={user}
                       activeUserId={activeUserId}
                       setActiveUserId={setActiveUserId}
