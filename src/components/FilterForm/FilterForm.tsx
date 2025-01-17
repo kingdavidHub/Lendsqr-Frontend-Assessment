@@ -2,7 +2,9 @@ import { CalendarDays } from "lucide-react";
 import styles from "./FilterForm.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import classNames from "classnames";
-
+import { UserRecord } from "../../types";
+import React, { SetStateAction } from "react";
+import { chunkCurrentData } from "../../utils";
 interface FilterFormProps {
   organization: string;
   username: string;
@@ -12,7 +14,17 @@ interface FilterFormProps {
   status: string | "active" | "inactive" | "blacklisted" | "pending";
 }
 
-const FilterForm = () => {
+const FilterForm = ({
+  data,
+  setData,
+  setRanges,
+  setCurrentRange,
+}: {
+  data: UserRecord[] | null;
+  setData: React.Dispatch<SetStateAction<UserRecord[] | null>>;
+  setRanges: React.Dispatch<SetStateAction<UserRecord[][]>>;
+  setCurrentRange: React.Dispatch<SetStateAction<UserRecord[] | null>>;
+}) => {
   const {
     register,
     handleSubmit,
@@ -28,7 +40,25 @@ const FilterForm = () => {
       status: "",
     },
   });
-  const onSubmit: SubmitHandler<FilterFormProps> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FilterFormProps> = (formData) => {
+    const filteredData = data?.filter((item: UserRecord) => {
+      return (
+        item.organization === formData.organization ||
+        item.username === formData.username ||
+        item.email === formData.email ||
+        item.date_joined === formData.date ||
+        item.phone_number === formData.phoneNumber ||
+        item.status === formData.status
+      );
+    });
+
+    if (typeof filteredData !== "undefined") {
+      setData(filteredData);
+      const chunk: UserRecord[][] = chunkCurrentData(filteredData);
+      setRanges(chunk);
+      setCurrentRange(chunk[0]);
+    }
+  };
 
   return (
     <div className={styles.filterWrapper}>

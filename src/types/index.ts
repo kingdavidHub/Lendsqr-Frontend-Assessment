@@ -46,3 +46,13 @@ export interface PaginationProps {
   totalPages: number;
   loading: boolean;
 }
+
+export interface FindSomethingProps {
+  organization?: string;
+  username?: string;
+  email?: string;
+  date?: string;
+  phoneNumber?: string;
+  status?: string | "active" | "inactive" | "blacklisted" | "pending";
+
+}

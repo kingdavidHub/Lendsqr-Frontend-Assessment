@@ -10,9 +10,10 @@ import metrics from "./metrics";
 import { UserRecord } from "../../types";
 import Skeleton from "react-loading-skeleton";
 import classNames from "classnames";
+import { chunkCurrentData } from "../../utils";
 
 const Dashboard = () => {
-  const [, setData] = useState<UserRecord[] | null>(null);
+  const [data, setData] = useState<UserRecord[] | null>(null);
   const [ranges, setRanges] = useState<UserRecord[][]>([]);
   const [currentRange, setCurrentRange] = useState<UserRecord[] | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,14 +53,12 @@ const Dashboard = () => {
         ) {
           throw new Error("No data found");
         } else {
+          console.log(response);
+
           setData(response);
           setLoading(false);
 
-          const chunked: UserRecord[][] = [];
-          for (let i = 0; i < response.length; i += 100) {
-            chunked.push(response.slice(i, i + 100));
-          }
-          setData(response);
+          const chunked = chunkCurrentData(response);
           setRanges(chunked);
           setCurrentRange(chunked[0]); // Set default range to first chunk
 
@@ -204,7 +203,16 @@ const Dashboard = () => {
 
           {isFilterActive && (
             <ClickAwayListener onClickAway={handleClickAway}>
-              <div>{isFilterActive && <FilterForm />}</div>
+              <div>
+                {isFilterActive && (
+                  <FilterForm
+                    setData={setData}
+                    data={data}
+                    setCurrentRange={setCurrentRange}
+                    setRanges={setRanges}
+                  />
+                )}
+              </div>
             </ClickAwayListener>
           )}
         </div>
