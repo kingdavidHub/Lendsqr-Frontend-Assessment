@@ -42,8 +42,10 @@ const FilterForm = ({
   });
   const onSubmit: SubmitHandler<FilterFormProps> = (formData) => {
     const filteredData = data?.filter((item: UserRecord) => {
+      // if(item.organization === formData.organization && item.status === formData.status && item.email === formData.email){
+      //   return item;
+      // }
       return (
-        item.organization === formData.organization ||
         item.username === formData.username ||
         item.email === formData.email ||
         item.date_joined === formData.date ||

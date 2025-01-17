@@ -7,8 +7,8 @@ type WindowSize = {
 
 export const useResize = () => {
   const [windowsSize, setWindowSize] = useState<WindowSize>({
-    width: 0,
-    height: 0,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
 
   useEffect(() => {

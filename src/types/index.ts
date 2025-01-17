@@ -45,6 +45,7 @@ export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   loading: boolean;
+  isFilterActive: boolean
 }
 
 export interface FindSomethingProps {

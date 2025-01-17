@@ -1,23 +1,23 @@
 import { SidebarProps } from "../types";
 import userFriendsIcon from "../assets/sidebarIcon/user-friends.svg";
 import DecisionModels from "../assets/sidebarIcon/DecisionModels.svg";
-// import savingsIcon from "../assets/sidebarIcon/savings.svg";
-// import loanRequestsIcon from "../assets/sidebarIcon/loanRequests.svg";
 import whitelistIcon from "../assets/sidebarIcon/whitelist.svg";
 import karmaIcon from "../assets/sidebarIcon/karma.svg";
 import organizationIcon from "../assets/sidebarIcon/briefcase1.svg";
-
-// import loanProductsIcon from "../assets/sidebarIcon/loans.svg";
-
-// import savingsProductsIcon from "../assets/sidebarIcon/savingsProducts.svg";
+import gurantorsIcon from "../assets/sidebarIcon/gurantors_1.svg";
+import loanProductsIcon from "../assets/sidebarIcon/loansack.svg";
+import piggyBankIcon from "../assets/sidebarIcon/piggy-bank.svg";
+import loanRequestsIcon from "../assets/sidebarIcon/loan-request.svg";
+import npBankIcon from "../assets/sidebarIcon/np_bank.svg";
+import trancationIcon from "../assets/sidebarIcon/transactions.svg";
 import feesChargesIcon from "../assets/sidebarIcon/feesCharges.svg";
-// import transactionsIcon from "../assets/sidebarIcon/transactions.svg";
 import servicesIcon from "../assets/sidebarIcon/services.svg";
 import serviceAccountIcon from "../assets/sidebarIcon/serviceAccount.svg";
 import settlementsIcon from "../assets/sidebarIcon/settlements.svg";
-// import preferencesIcon from "../assets/sidebarIcon/preferences.svg";
-// import feesPricingIcon from "../assets/sidebarIcon/feesPricing.svg";
+import reportIcon from "../assets/sidebarIcon/reports.svg";
+import badgePercentIcon from "../assets/sidebarIcon/badge-percent.svg";
 import auditLogsIcon from "../assets/sidebarIcon/auditLogs.svg";
+import preferencesIcon from "../assets/sidebarIcon/preferences.svg";
 
 
 
@@ -31,11 +31,11 @@ export const sidebar: SidebarProps[] = [
           headingTitle: "Users",
         },
         {
-          headingIcon: userFriendsIcon,
+          headingIcon: gurantorsIcon,
           headingTitle: "Guarantors",
         },
         {
-          headingIcon: userFriendsIcon,
+          headingIcon: loanProductsIcon,
           headingTitle: "Loans",
         },
         {
@@ -43,11 +43,11 @@ export const sidebar: SidebarProps[] = [
           headingTitle: "Decision Models",
         },
         {
-          headingIcon: DecisionModels,
+          headingIcon: piggyBankIcon,
           headingTitle: "Savings",
         },
         {
-          headingIcon: DecisionModels,
+          headingIcon: loanRequestsIcon,
           headingTitle: "Loan Requests",
         },
         {
@@ -71,11 +71,11 @@ export const sidebar: SidebarProps[] = [
           headingTitle: "Organization",
         },
         {
-          headingIcon: userFriendsIcon,
+          headingIcon: loanRequestsIcon,
           headingTitle: "Loan Products",
         },
         {
-          headingIcon: userFriendsIcon,
+          headingIcon: npBankIcon,
           headingTitle: "Savings Products",
         },
         {
@@ -83,7 +83,7 @@ export const sidebar: SidebarProps[] = [
           headingTitle: "Fees and Charges",
         },
         {
-          headingIcon: userFriendsIcon,
+          headingIcon: trancationIcon,
           headingTitle: "Transactions",
         },
         {
@@ -98,6 +98,10 @@ export const sidebar: SidebarProps[] = [
           headingIcon: settlementsIcon,
           headingTitle: "Settlements",
         },
+        {
+          headingIcon: reportIcon,
+          headingTitle: "Reports",
+        },
       ],
     },
   ],
@@ -106,11 +110,11 @@ export const sidebar: SidebarProps[] = [
       heading: "Settings",
       headingList: [
         {
-          headingIcon: settlementsIcon,
+          headingIcon: preferencesIcon,
           headingTitle: "Preferences",
         },
         {
-          headingIcon: settlementsIcon,
+          headingIcon: badgePercentIcon,
           headingTitle: " Fees and Pricing",
         },
         {

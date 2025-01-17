@@ -10,21 +10,17 @@ const PaginationComp = ({
   ranges,
   loading,
   totalPages,
+  isFilterActive
 }: PaginationProps) => {
   const handlePageClick = (data: { selected: number }) => {
     setCurrentPage(data.selected + 1);
   };
   
-  //Todo: provide a better UI for global ErrorBoundary
-  // const defaultRange = [0, 1, 2, 3, 4];
-  // // [100, 200, 300, 400, 500]
-  // defaultRae.map((_, index) => {
-  //   console.log(++index * 100);
-  // });
   return (
     <div className={classNames(styles.pagination, "padding-1")}>
-      <div className="flexCenter gap-1">
-        <span>Showing</span>
+      {
+        !isFilterActive  && <div className="flexCenter gap-1">
+        {loading ? <Skeleton height={30} width={80} /> :  <span>Showing</span>}
         <div className={styles.selectContainer}>
           {loading ? (
             <>
@@ -55,10 +51,12 @@ const PaginationComp = ({
 
         <span>{loading ?  <Skeleton height={30} width={80} /> : `Out of ${ranges.flat().length}`}</span>
       </div>
+      }
+      
       
 
       {loading ? <Skeleton width={300} height={50} /> :
-      <ReactPaginate
+      !isFilterActive && <ReactPaginate
         previousLabel={<ChevronLeft color="#213F7D" />}
         previousLinkClassName={styles.prev}
         nextLabel={<ChevronRight color="#213F7D" />}

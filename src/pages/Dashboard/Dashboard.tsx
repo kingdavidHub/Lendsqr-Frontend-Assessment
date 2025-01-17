@@ -53,7 +53,6 @@ const Dashboard = () => {
         ) {
           throw new Error("No data found");
         } else {
-          console.log(response);
 
           setData(response);
           setLoading(false);
@@ -111,63 +110,57 @@ const Dashboard = () => {
                       <div
                         className={classNames(styles.tableFix, "flex gap-0")}
                       >
-                        <span className="display-inline-block">
-                          ORGANIZATION
-                        </span>{" "}
-                        <button
-                          aria-label="Filter by organization"
-                          onClick={filterActive}
-                        >
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="organization"
+                          ariaLabel="Filter By organization"
+                        />
                       </div>
                     </th>
                     <th>
                       <div className="flex gap-0">
-                        <span className="display-inline-block">USERNAME</span>
-                        <button aria-label="Filter by username">
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="username"
+                          ariaLabel="Filter by username"
+                        />
                       </div>
                     </th>
                     <th>
                       <div className="flex gap-0">
-                        <span className="display-inline-block">EMAIL</span>
-                        <button aria-label="Filter by email">
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="email"
+                          ariaLabel="Filter by email"
+                        />
                       </div>
                     </th>
                     <th>
                       <div className="flex gap-0">
-                        <span className="display-inline-block">PHONE</span>
-                        <button aria-label="Filter by phone">
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="phone"
+                          ariaLabel="Filter by phone"
+                        />
                       </div>
                     </th>
                     <th>
                       <div className="flex gap-0">
-                        <span
-                          style={{
-                            width: "5rem",
-                          }}
-                        >
-                          <span className="display-inline-block">
-                            DATE JOINED
-                          </span>
-                        </span>{" "}
-                        <button aria-label="Filter by date joined">
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="Date "
+                          ariaLabel="Filter by date"
+                          style={{ width: "5rem" }}
+                        />
                       </div>
                     </th>
                     <th>
                       <div className="flex gap-0">
-                        <span className="display-inline-block">STATUS</span>
-                        <button aria-label="Filter by status">
-                          <ListFilter size="1rem" color="#545F7D" />
-                        </button>
+                        <TableHead
+                          filterActive={filterActive}
+                          title="Status "
+                          ariaLabel="Filter by status"
+                        />
                       </div>
                     </th>
                     <th
@@ -223,10 +216,34 @@ const Dashboard = () => {
           ranges={ranges}
           loading={loading}
           setCurrentPage={setCurrentPage}
+          isFilterActive={isFilterActive}
           setCurrentRange={setCurrentRange}
           totalPages={totalPages}
         />
       </div>
+    </>
+  );
+};
+
+const TableHead = ({
+  filterActive,
+  title,
+  ariaLabel,
+  style,
+}: {
+  title: string;
+  ariaLabel: string;
+  filterActive: () => void;
+  style?: object;
+}) => {
+  return (
+    <>
+      <span className="display-inline-block" style={style}>
+        {title.toUpperCase()}
+      </span>{" "}
+      <button aria-label={ariaLabel} onClick={filterActive}>
+        <ListFilter size="1rem" color="#545F7D" />
+      </button>
     </>
   );
 };

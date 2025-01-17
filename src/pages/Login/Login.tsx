@@ -20,7 +20,6 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>();
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
     if (data.email && data.password) {
       navigate("/dashboard");
     }
