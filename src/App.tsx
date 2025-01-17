@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import UserDetails from "./pages/UserDetails/UserDetails";
 import Error from "./pages/Error/Error";
 import ToggleProvider from "./provider/ToggleProvider";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (

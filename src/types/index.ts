@@ -44,4 +44,5 @@ export interface PaginationProps {
   ranges: UserRecord[][];
   currentPage: number;
   totalPages: number;
+  loading: boolean;
 }

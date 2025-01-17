@@ -106,7 +106,12 @@
             text-transform: uppercase;
             background: white;
             position: sticky;
-            top: 0;
+
+            @media screen and (max-width: 768px) {
+             padding-right: 1rem
+             ;
+            }
+          top: 0;
             z-index: 10;
           }
 

@@ -1,47 +1,50 @@
-import { FormEvent, useState } from "react";
 import { CalendarDays } from "lucide-react";
 import styles from "./FilterForm.module.scss";
+import { SubmitHandler, useForm } from "react-hook-form";
+import classNames from "classnames";
+
+interface FilterFormProps {
+  organization: string;
+  username: string;
+  email: string;
+  date: string;
+  phoneNumber: string;
+  status: string | "active" | "inactive" | "blacklisted" | "pending";
+}
 
 const FilterForm = () => {
-  const [formData, setFormData] = useState({
-    organization: "",
-    username: "",
-    email: "",
-    date: "",
-    phoneNumber: "",
-    status: "",
-  });
-
-  const handleReset = () => {
-    setFormData({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FilterFormProps>({
+    defaultValues: {
       organization: "",
       username: "",
       email: "",
       date: "",
       phoneNumber: "",
       status: "",
-    });
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // Handle filter submission
-    console.log("Filter data:", formData);
-  };
+    },
+  });
+  const onSubmit: SubmitHandler<FilterFormProps> = (data) => console.log(data);
 
   return (
     <div className={styles.filterWrapper}>
       <div className={styles.filterContainer}>
-        <form className={styles.filterForm} onSubmit={handleSubmit}>
+        <form className={styles.filterForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.formGroup}>
             <label htmlFor="organization">Organization</label>
             <div className={styles.selectWrapper}>
               <select
                 id="organization"
-                value={formData.organization}
-                onChange={(e) =>
-                  setFormData({ ...formData, organization: e.target.value })
-                }
+                {...register("organization", {
+                  required: {
+                    value: true,
+                    message: "Organization has not been set",
+                  },
+                })}
               >
                 <option value="" disabled>
                   Select
@@ -51,6 +54,11 @@ const FilterForm = () => {
                 <option value="lendstar">Lendstar</option>
               </select>
             </div>
+            {errors.organization && (
+              <span className={classNames(styles.formError)}>
+                {errors.organization.message}
+              </span>
+            )}
           </div>
 
           <div className={styles.formGroup}>
@@ -59,10 +67,7 @@ const FilterForm = () => {
               type="text"
               id="username"
               placeholder="User"
-              value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
+              {...register("username")}
             />
           </div>
 
@@ -72,10 +77,7 @@ const FilterForm = () => {
               type="email"
               id="email"
               placeholder="Email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              {...register("email")}
             />
           </div>
 
@@ -86,12 +88,9 @@ const FilterForm = () => {
                 type="date"
                 id="date"
                 placeholder="Date"
-                value={formData.date}
-                onChange={(e) =>
-                  setFormData({ ...formData, date: e.target.value })
-                }
+                {...register("date")}
               />
-              <CalendarDays className={styles.calendarIcon} size={16}  />
+              <CalendarDays className={styles.calendarIcon} size={16} />
             </div>
           </div>
 
@@ -101,23 +100,14 @@ const FilterForm = () => {
               type="tel"
               id="phoneNumber"
               placeholder="Phone Number"
-              value={formData.phoneNumber}
-              onChange={(e) =>
-                setFormData({ ...formData, phoneNumber: e.target.value })
-              }
+              {...register("phoneNumber")}
             />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="status">Status</label>
             <div className={styles.selectWrapper}>
-              <select
-                id="status"
-                value={formData.status}
-                onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
-                }
-              >
+              <select id="status" {...register("status")}>
                 <option value="" disabled>
                   Select
                 </option>
@@ -128,12 +118,11 @@ const FilterForm = () => {
               </select>
             </div>
           </div>
-
           <div className={styles.buttonGroup}>
             <button
               type="button"
               className={styles.resetButton}
-              onClick={handleReset}
+              onClick={() => reset()}
             >
               Reset
             </button>

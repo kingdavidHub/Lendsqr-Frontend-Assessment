@@ -25,7 +25,7 @@ export default function Navbar() {
     <header>
       <nav className={styles.navbar}>
         <div className={classNames(styles.logo, "flex gap-1")}>
-          {width <= 1024 && (
+          {width < 1024 && (
             <button
               onClick={() => setToggle((prev) => !prev)}
               aria-label={toggle ? "Close menu" : "Open menu"}

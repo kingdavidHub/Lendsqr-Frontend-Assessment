@@ -19,14 +19,15 @@ const PaginatedData = ({
     setActiveUserId(null);
   };
 
+  const coustomEmail = `${user.username}@${user.organization}.com`;
   return (
     <>
       <tr>
         <td>{user.organization}</td>
         <td>{user.username}</td>
-        <td>{user.email}</td>
-        <td>{user.phone_number}</td>
-        <td>{user.date_joined}</td>
+        <td className="clamp-text">{coustomEmail}</td>
+        <td className="clamp-text">{user.phone_number}</td>
+        <td className="clamp-text">{user.date_joined}</td>
         <td>
           <span
             className={classNames(

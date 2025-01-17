@@ -8,11 +8,20 @@ import { ToggleContext } from "../../context/ToggleContext";
 import { sidebar } from "../../data";
 import { HeadingListProps } from "../../types";
 import { v4 as uuidv4 } from "uuid";
+import ClickAwayListener from "react-click-away-listener";
 
 const Sidebar = () => {
   const toggle = useContext(ToggleContext)?.toggle;
+  const setToggle = useContext(ToggleContext)?.setToggle;
+
+  function handleClickAway(){
+    if(typeof setToggle !== "undefined"){
+      setToggle(false);
+    }
+  }
   return (
-    <div className={classNames(styles.sidebar, toggle ? styles.active : "")}>
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <div className={classNames(styles.sidebar, toggle ? styles.active : "")}>
       <div className="innerWidth flexCol gap-2">
         <div className={classNames(styles.organization, "flex padding-left-1")}>
           <img
@@ -38,6 +47,7 @@ const Sidebar = () => {
         })}
       </div>
     </div>
+    </ClickAwayListener>
   );
 };
 

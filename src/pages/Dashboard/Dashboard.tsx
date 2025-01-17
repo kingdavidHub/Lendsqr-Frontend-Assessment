@@ -1,6 +1,6 @@
 import styles from "./dashboard.module.scss";
 import { ListFilter } from "lucide-react";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import FilterForm from "../../components/FilterForm/FilterForm";
 import ClickAwayListener from "react-click-away-listener";
@@ -8,7 +8,8 @@ import PaginationComp from "../../components/PaginationComp/PaginationComp";
 import PaginatedData from "../../components/PaginatedData/PaginatedData";
 import metrics from "./metrics";
 import { UserRecord } from "../../types";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
+import classNames from "classnames";
 
 const Dashboard = () => {
   const [, setData] = useState<UserRecord[] | null>(null);
@@ -51,29 +52,6 @@ const Dashboard = () => {
         ) {
           throw new Error("No data found");
         } else {
-          // const usersRecord: UserRecord[] = response.map((user) => ({
-          //   id: user.id.toString(),
-          //   organization: user.organization as "lendsqr" | "irorun" | "lendstar",
-          //   username: user.username,
-          //   first_name: user.first_name,
-          //   last_name: user.last_name,
-          //   email: user.email,
-          //   phone_number: user.phone_number,
-          //   date_joined: user.date_joined,
-          //   status: user.status as
-          //     | "active"
-          //     | "inactive"
-          //     | "blacklisted"
-          //     | "pending",
-          //   level_education: user.level_education,
-          //   guarantor: user.guarantor,
-          //   guarantor_number: user.guarantor_number,
-          //   guarantor_relationship: user.guarantor_relationship,
-          //   children: user.children,
-          //   gender: user.gender as "male" | "female",
-          //   marital_status: user.marital_status,
-          //   guarantor_email: user.guarantor_email,
-          // }));
           setData(response);
           setLoading(false);
 
@@ -131,8 +109,12 @@ const Dashboard = () => {
                 <thead>
                   <tr>
                     <th>
-                      <div className="flex gap-1">
-                        <span>ORGANIZATION</span>{" "}
+                      <div
+                        className={classNames(styles.tableFix, "flex gap-0")}
+                      >
+                        <span className="display-inline-block">
+                          ORGANIZATION
+                        </span>{" "}
                         <button
                           aria-label="Filter by organization"
                           onClick={filterActive}
@@ -142,37 +124,39 @@ const Dashboard = () => {
                       </div>
                     </th>
                     <th>
-                      <div className="flex gap-1">
-                        USERNAME{" "}
+                      <div className="flex gap-0">
+                        <span className="display-inline-block">USERNAME</span>
                         <button aria-label="Filter by username">
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
                       </div>
                     </th>
                     <th>
-                      <div className="flex gap-1">
-                        EMAIL{" "}
+                      <div className="flex gap-0">
+                        <span className="display-inline-block">EMAIL</span>
                         <button aria-label="Filter by email">
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
                       </div>
                     </th>
                     <th>
-                      <div className="flex gap-1">
-                        PHONE{" "}
+                      <div className="flex gap-0">
+                        <span className="display-inline-block">PHONE</span>
                         <button aria-label="Filter by phone">
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
                       </div>
                     </th>
                     <th>
-                      <div className="flex gap-1">
+                      <div className="flex gap-0">
                         <span
                           style={{
                             width: "5rem",
                           }}
                         >
-                          DATE JOINED
+                          <span className="display-inline-block">
+                            DATE JOINED
+                          </span>
                         </span>{" "}
                         <button aria-label="Filter by date joined">
                           <ListFilter size="1rem" color="#545F7D" />
@@ -180,8 +164,8 @@ const Dashboard = () => {
                       </div>
                     </th>
                     <th>
-                      <div className="flex gap-1">
-                        STATUS{" "}
+                      <div className="flex gap-0">
+                        <span className="display-inline-block">STATUS</span>
                         <button aria-label="Filter by status">
                           <ListFilter size="1rem" color="#545F7D" />
                         </button>
@@ -199,13 +183,11 @@ const Dashboard = () => {
                 <tbody>
                   {loading
                     ? Array.from({ length: 10 }).map((_, index) => (
-                      <SkeletonTheme baseColor="#f0f0f0" highlightColor="#e0e0e0" key={index}>
                         <tr key={index}>
                           <td colSpan={7}>
                             <Skeleton />
                           </td>
                         </tr>
-                      </SkeletonTheme>
                       ))
                     : paginatedData?.map((user) => (
                         <PaginatedData
@@ -231,6 +213,7 @@ const Dashboard = () => {
         <PaginationComp
           currentPage={currentPage}
           ranges={ranges}
+          loading={loading}
           setCurrentPage={setCurrentPage}
           setCurrentRange={setCurrentRange}
           totalPages={totalPages}

@@ -19,6 +19,12 @@
       .formGroup {
         margin-bottom: 1.25rem;
 
+
+        .formError {
+          color: red;
+          font-size: 12px;
+        }
+
         label {
           display: block;
           color: #545f7d;

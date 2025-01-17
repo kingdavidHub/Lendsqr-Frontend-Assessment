@@ -1,6 +1,6 @@
 // Define SCSS variables
 $font-size-base: 16px;
-$text-green: #39CDCC;
+$text-green: #39cdcc;
 $text-red: red;
 
 :root {
@@ -153,13 +153,13 @@ ol {
 }
 
 .primaryText {
-  color: #213F7D;
+  color: #213f7d;
   font-weight: bold;
   font-size: 2rem;
 }
 
 .secondaryText {
-  color: #545F7D;
+  color: #545f7d;
   font-size: 0.9rem;
 }
 
@@ -170,7 +170,7 @@ ol {
   background: $text-green;
   outline: none;
   border: none;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   transition: all 300ms ease-in-out;
 }
 .uppercase {
@@ -182,12 +182,11 @@ ol {
 //   transform: scale(1.1);
 // }
 
-
 .input {
-  padding: .5rem;
-  border-radius: .2rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
   outline: none;
-  border: 2px solid #545F7D26;
+  border: 2px solid #545f7d26;
   &::placeholder {
     color: #545f7d69;
   }
@@ -396,9 +395,8 @@ ol {
 }
 
 .padding-top-bottom {
-  padding: .5rem;
+  padding: 0.5rem;
 }
-
 
 // displays
 .display-none {
@@ -410,6 +408,13 @@ ol {
 
 .display-block {
   display: block;
+}
+
+.clamp-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 /* media queries */
