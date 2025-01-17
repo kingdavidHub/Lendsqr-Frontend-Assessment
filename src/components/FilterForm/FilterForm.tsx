@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import classNames from "classnames";
 import { UserRecord } from "../../types";
 import React, { SetStateAction } from "react";
-import { chunkCurrentData } from "../../utils";
+import { chunkCurrentData, formatDate } from "../../utils";
 interface FilterFormProps {
   organization: string;
   username: string;
@@ -42,13 +42,10 @@ const FilterForm = ({
   });
   const onSubmit: SubmitHandler<FilterFormProps> = (formData) => {
     const filteredData = data?.filter((item: UserRecord) => {
-      // if(item.organization === formData.organization && item.status === formData.status && item.email === formData.email){
-      //   return item;
-      // }
       return (
         item.username === formData.username ||
         item.email === formData.email ||
-        item.date_joined === formData.date ||
+        item.date_joined === formatDate(formData.date) ||
         item.phone_number === formData.phoneNumber ||
         item.status === formData.status
       );

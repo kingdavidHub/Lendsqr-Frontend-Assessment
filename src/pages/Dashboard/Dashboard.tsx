@@ -10,7 +10,7 @@ import metrics from "./metrics";
 import { UserRecord } from "../../types";
 import Skeleton from "react-loading-skeleton";
 import classNames from "classnames";
-import { chunkCurrentData } from "../../utils";
+import { chunkCurrentData, formatDate } from "../../utils";
 
 const Dashboard = () => {
   const [data, setData] = useState<UserRecord[] | null>(null);
@@ -44,7 +44,7 @@ const Dashboard = () => {
           method: "GET",
         });
         const response: UserRecord[] = await data.json();
-        localStorage.setItem("usersRecord", JSON.stringify(response));
+        console.log(response[0]?.date_joined);
 
         if (
           !response ||
@@ -53,15 +53,22 @@ const Dashboard = () => {
         ) {
           throw new Error("No data found");
         } else {
+          const result: UserRecord[] = response.map((item) => {
+            return {
+              ...item,
+              date_joined: formatDate(item.date_joined),
+            };
+          });
 
-          setData(response);
+          localStorage.setItem("usersRecord", JSON.stringify(result));
+          setData(result);
           setLoading(false);
 
-          const chunked = chunkCurrentData(response);
+          const chunked = chunkCurrentData(result);
           setRanges(chunked);
           setCurrentRange(chunked[0]); // Set default range to first chunk
 
-          return response;
+          return result;
         }
       } catch (error) {
         throw new Error("An error occurred while fetching data");

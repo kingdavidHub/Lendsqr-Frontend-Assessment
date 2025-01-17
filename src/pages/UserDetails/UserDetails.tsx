@@ -13,7 +13,6 @@ const UserDetails = () => {
   const userId: string | undefined = useParams()?.id;
   const userDetails: UserRecord | undefined = useUserDetailsStorage(userId);
   const fullName = `${userDetails?.first_name} ${userDetails?.last_name}`;
-  const twitter = `@${userDetails?.first_name}_${userDetails?.last_name}`;
 
   const [activeTab, setActiveTab] = useState("General Details");
 
@@ -30,7 +29,7 @@ const UserDetails = () => {
     <>
       <Helmet>
         {/* possible use template literal and attach the user name to the title from localstorage */}
-        <title>User Details - LendSqr Admin</title>
+        <title>{fullName} | Details</title>
       </Helmet>
       <div className={styles.container}>
         <div className={styles.header}>

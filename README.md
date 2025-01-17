@@ -1,50 +1,103 @@
-# React + TypeScript + Vite
+# Lendsqr Frontend Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a frontend assessment for Lendsqr, built using React, TypeScript, and Vite. It includes features such as user management, filtering, and pagination.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Components](#components)
+- [Styling](#styling)
+- [API Integration](#api-integration)
+- [Testing](#testing)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To get started with the project, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/kingdavidHub/Lendsqr_Frontend_Assessment.git
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+2. Navigate to the project directory:
+   ```bash
+   cd lendsqr-frontend-assessment
+   ```
+
+3. Install the dependencies:
+   ```bash
+   pnpm install
+   ```
+
+4. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
+
+## Usage
+
+After starting the development server, you can access the application at `http://localhost:3000`. The application includes the following main features:
+
+- **Dashboard**: Displays user metrics and a table of users with filtering and pagination.
+- **User Details**: Shows detailed information about a specific user.
+
+## Project Structure
+
+The project structure is organized as follows:
+
+```
+src/
+├── assets/                 # Static assets (images, icons, etc.)
+├── components/             # Reusable components
+│   ├── FilterForm/         # Filter form component
+│   ├── PaginationComp/     # Pagination component
+│   ├── PaginatedData/      # Paginated data component
+│   └── TableActions/       # Table actions component
+├── hooks/                  # Custom hooks
+├── pages/                  # Page components
+│   ├── Dashboard/          # Dashboard page
+│   └── UserDetails/        # User details page
+├── styles/                 # Global styles
+├── types/                  # TypeScript types
+├── utils/                  # Utility functions
+├── App.tsx                 # Main application component
+├── main.tsx                # Entry point for the application
+└── vite-env.d.ts           # Vite environment types
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Components
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### FilterForm
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+The `FilterForm` component allows users to filter the user table based on various criteria.
+
+### PaginationComp
+
+The `PaginationComp` component handles pagination for the user table.
+
+### PaginatedData
+
+The `PaginatedData` component displays paginated user data in the table.
+
+### TableActions
+
+The `TableActions` component provides actions such as viewing details, blacklisting, and activating users.
+
+## Styling
+
+The project uses SCSS for styling. Global styles are located in the `styles` directory, and component-specific styles are located in their respective directories.
+
+## API Integration
+
+The project integrates with an API to fetch user data. The API URL is configured using environment variables.
+
+## Testing
+
+To run tests, use the following command:
+
+```bash
+pnpm run test
 ```
+
