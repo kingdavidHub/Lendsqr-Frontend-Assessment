@@ -1,0 +1,39 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { RouterProvider, createMemoryRouter } from 'react-router';
+import App from '../App';
+import Login from '../pages/Login/Login';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import Error from '../pages/Error/Error';
+
+const routes = [
+  {
+    path: '/',
+    element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+  },
+];
+
+describe('App', () => {
+  it('renders Login component for the root path', () => {
+    const router = createMemoryRouter(routes, { initialEntries: ['/'] });
+    render(<RouterProvider router={router} />);
+    expect(screen.getByText(/login/i)).toBeInTheDocument();
+  });
+
+  it('renders Dashboard component for the /dashboard path', () => {
+    const router = createMemoryRouter(routes, { initialEntries: ['/dashboard'] });
+    render(<RouterProvider router={router} />);
+    expect(screen.getByText(/dashboard/i)).toBeInTheDocument();
+  });
+
+  it('renders Error component for an unknown path', () => {
+    const router = createMemoryRouter(routes, { initialEntries: ['/unknown'] });
+    render(<RouterProvider router={router} />);
+    expect(screen.getByText(/this page can't be found/i)).toBeInTheDocument();
+  });
+});
