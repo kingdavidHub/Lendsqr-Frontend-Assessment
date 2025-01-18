@@ -1,103 +1,114 @@
 # Lendsqr Frontend Assessment
 
-This project is a frontend assessment for Lendsqr, built using React, TypeScript, and Vite. It includes features such as user management, filtering, and pagination.
+A modern React application built with TypeScript and Vite, showcasing user management capabilities with advanced features like filtering, pagination, and detailed user views.
 
-## Table of Contents
+## 🚀 Features
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Components](#components)
-- [Styling](#styling)
-- [API Integration](#api-integration)
-- [Testing](#testing)
+- User Dashboard with Analytics
+- Advanced Filtering System
+- Responsive Table with Pagination
+- Detailed User Profiles
+- Role-based Access Control
+- Modern UI/UX Design
 
-## Installation
+## 🛠️ Technologies
 
-To get started with the project, follow these steps:
+- React 18
+- TypeScript
+- Vite
+- SCSS
+- React Router
+- Context API
+- Jest/React Testing Library
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/kingdavidHub/Lendsqr_Frontend_Assessment.git
-   ```
+## 🏗️ Installation
 
-2. Navigate to the project directory:
-   ```bash
-   cd lendsqr-frontend-assessment
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/kingdavidHub/Lendsqr_Frontend_Assessment.git
 
-3. Install the dependencies:
-   ```bash
-   pnpm install
-   ```
+# Navigate to project
+cd lendsqr-frontend-assessment
 
-4. Start the development server:
-   ```bash
-   pnpm run dev
-   ```
+# Install dependencies
+pnpm install
 
-## Usage
+# Start development server
+pnpm run dev
+```
 
-After starting the development server, you can access the application at `http://localhost:3000`. The application includes the following main features:
+## 🎯 Usage
 
-- **Dashboard**: Displays user metrics and a table of users with filtering and pagination.
-- **User Details**: Shows detailed information about a specific user.
+The application will be available at `http://localhost:3000`
 
-## Project Structure
+### Key Features:
 
-The project structure is organized as follows:
+1. **Dashboard**
+   - User metrics overview
+   - Filterable user table
+   - Quick action buttons
+
+2. **User Management**
+   - View user details
+   - Blacklist/Activate users
+   - Export user data
+
+## 📁 Project Structure
 
 ```
 src/
-├── assets/                 # Static assets (images, icons, etc.)
-├── components/             # Reusable components
-│   ├── FilterForm/         # Filter form component
-│   ├── PaginationComp/     # Pagination component
-│   ├── PaginatedData/      # Paginated data component
-│   └── TableActions/       # Table actions component
-├── hooks/                  # Custom hooks
-├── pages/                  # Page components
-│   ├── Dashboard/          # Dashboard page
-│   └── UserDetails/        # User details page
-├── styles/                 # Global styles
-├── types/                  # TypeScript types
-├── utils/                  # Utility functions
-├── App.tsx                 # Main application component
-├── main.tsx                # Entry point for the application
-└── vite-env.d.ts           # Vite environment types
+├── assets/          # Static resources
+├── components/      # Reusable UI components
+├── hooks/          # Custom React hooks
+├── pages/          # Page components
+├── services/       # API services
+├── styles/         # Global styles
+├── types/          # TypeScript definitions
+└── utils/          # Helper functions
 ```
 
-## Components
+## 🔧 Configuration
 
-### FilterForm
+Create a `.env` file in the root directory:
 
-The `FilterForm` component allows users to filter the user table based on various criteria.
+```
+VITE_API_URL=your_api_url
+```
 
-### PaginationComp
-
-The `PaginationComp` component handles pagination for the user table.
-
-### PaginatedData
-
-The `PaginatedData` component displays paginated user data in the table.
-
-### TableActions
-
-The `TableActions` component provides actions such as viewing details, blacklisting, and activating users.
-
-## Styling
-
-The project uses SCSS for styling. Global styles are located in the `styles` directory, and component-specific styles are located in their respective directories.
-
-## API Integration
-
-The project integrates with an API to fetch user data. The API URL is configured using environment variables.
-
-## Testing
-
-To run tests, use the following command:
+## 🧪 Testing
 
 ```bash
+# Run tests
 pnpm run test
+
+# Run tests with coverage
+pnpm run test:coverage
 ```
+
+## 📦 Build
+
+```bash
+# Create production build
+pnpm run build
+
+# Preview production build
+pnpm run preview
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Push to branch
+5. Open a Pull Request
+
+## 📝 License
+
+MIT License - see LICENSE.md
+
+## 👤 Author
+
+David Igbayilola
+- GitHub: [@kingdavidHub](https://github.com/kingdavidHub)
 
