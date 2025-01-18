@@ -36,7 +36,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL;    
     const fetchRecord = async (): Promise<UserRecord[]> => {
       try {
         setLoading(true);
@@ -221,6 +221,7 @@ const Dashboard = () => {
           isFilterActive={isFilterActive}
           setCurrentRange={setCurrentRange}
           totalPages={totalPages}
+          data-testid="pagination-container"
         />
       </div>
     </>

@@ -17,7 +17,7 @@ const PaginationComp = ({
   };
   
   return (
-    <div className={classNames(styles.pagination, "padding-1")}>
+    <div className={classNames(styles.pagination, "padding-1")}  data-testid="pagination-container">
       {
         !isFilterActive  && <div className="flexCenter gap-1">
         {loading ? <Skeleton height={30} width={80} /> :  <span>Showing</span>}
@@ -32,6 +32,7 @@ const PaginationComp = ({
             <>
               <select
                 id="rangeSelect"
+                data-testid="rangeSelect"
                 className={styles.select}
                 onChange={(e) => {
                   setCurrentRange(ranges[parseInt(e.target.value)]);
@@ -57,9 +58,9 @@ const PaginationComp = ({
 
       {loading ? <Skeleton width={300} height={50} /> :
       !isFilterActive && <ReactPaginate
-        previousLabel={<ChevronLeft color="#213F7D" />}
+        previousLabel={<ChevronLeft color="#213F7D" aria-label="previous" />}
         previousLinkClassName={styles.prev}
-        nextLabel={<ChevronRight color="#213F7D" />}
+        nextLabel={<ChevronRight color="#213F7D" aria-label="next" />}
         nextLinkClassName={styles.next}
         breakLabel={"..."}
         pageCount={totalPages}

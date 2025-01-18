@@ -46,3 +46,10 @@ jest.mock("react-click-away-listener", () => ({
     return <div onClick={onClickAway}>{children}</div>;
   },
 }));
+
+global.import = {};
+global.import.meta = {
+  env: {
+    VITE_API_URL: 'https://mock-api.example.com'
+  }
+};

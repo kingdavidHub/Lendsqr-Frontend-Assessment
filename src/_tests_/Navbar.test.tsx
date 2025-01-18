@@ -1,10 +1,9 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router";
-import Navbar from "../../components/Navbar/Navbar";
-import { ToggleContext } from "../../context/ToggleContext";
-import { useResize } from '../../hooks/useResize';
+import Navbar from "../components/Navbar/Navbar";
+import { ToggleContext } from "../context/ToggleContext";
+import { useResize } from '../hooks/useResize';
 
 // Mock the useResize hook
 jest.mock("../hooks/useResize", () => ({

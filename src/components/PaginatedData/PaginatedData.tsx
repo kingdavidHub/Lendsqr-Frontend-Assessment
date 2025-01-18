@@ -60,8 +60,8 @@ const PaginatedData = ({
 
           {isActionsActive && (
             <ClickAwayListener onClickAway={handleClickAway}>
-              <div>
-                <TableActions userId={activeUserId} />
+              <div data-testid="table-actions">
+                <TableActions userId={activeUserId}  />
               </div>
             </ClickAwayListener>
           )}
