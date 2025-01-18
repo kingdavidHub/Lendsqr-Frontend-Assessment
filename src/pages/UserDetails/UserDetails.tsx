@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowLeft, UserRound } from "lucide-react";
 import { IoStar } from "react-icons/io5";
-import styles from "./UserDetails.module.scss";
+import styles from "./userDetails.module.scss";
 import classNames from "classnames";
 import { IoIosStarOutline } from "react-icons/io";
 import { Link, useParams } from "react-router";
