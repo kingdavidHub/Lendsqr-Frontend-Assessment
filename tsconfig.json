@@ -6,7 +6,7 @@
   ],
   "compilerOptions": {
     "target": "esnext",
-    "module": "ES2022", // Update this line
+    "module": "ESNext", // Update this line
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
