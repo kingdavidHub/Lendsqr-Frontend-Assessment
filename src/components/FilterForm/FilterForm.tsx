@@ -52,6 +52,7 @@ const FilterForm = ({
     });
 
     if (typeof filteredData !== "undefined") {
+      console.log("filtered data", filteredData)
       setData(filteredData);
       const chunk: UserRecord[][] = chunkCurrentData(filteredData);
       setRanges(chunk);
@@ -117,9 +118,17 @@ const FilterForm = ({
                 type="date"
                 id="date"
                 placeholder="Date"
-                {...register("date")}
+                {...register("date", {required: {
+                  message: 'Date has not been set',
+                  value: true
+                }})}
               />
               <CalendarDays className={styles.calendarIcon} size={16} />
+              {errors.date && (
+              <span className={classNames(styles.formError)}>
+                {errors.date.message}
+              </span>
+            )}
             </div>
           </div>
 
@@ -136,7 +145,10 @@ const FilterForm = ({
           <div className={styles.formGroup}>
             <label htmlFor="status">Status</label>
             <div className={styles.selectWrapper}>
-              <select id="status" {...register("status")}>
+              <select id="status" {...register("status", {required: {
+                message: "Status has not been set",
+                value: true
+              }})}>
                 <option value="" disabled>
                   Select
                 </option>
@@ -146,6 +158,11 @@ const FilterForm = ({
                 <option value="blacklisted">Blacklisted</option>
               </select>
             </div>
+            {errors.status && (
+              <span className={classNames(styles.formError)}>
+                {errors.status.message}
+              </span>
+            )}
           </div>
           <div className={styles.buttonGroup}>
             <button

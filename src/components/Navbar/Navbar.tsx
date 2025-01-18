@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header>
-      <nav className={styles.navbar}>
+      <nav className={styles.navbar}  role="navigation">
         <div className={classNames(styles.logo, "flex gap-1")}>
           {width < 1024 && (
             <button
@@ -41,7 +41,9 @@ export default function Navbar() {
           <img src={lendsqrIcon} alt="Lendsqr Logo" width={120} height={30} />
         </div>
 
-        <div className={styles.searchContainer}>
+       {
+        width >= 1024 && (
+          <div className={styles.searchContainer} role="search">
           <input
             type="text"
             placeholder="Search for anything"
@@ -52,6 +54,8 @@ export default function Navbar() {
             <Search className={styles.searchIcon} />
           </button>
         </div>
+        )
+       }
 
         <div className={styles.rightSection}>
           <Link to="/docs" className={styles.docs} aria-label="Docs">

@@ -43,14 +43,9 @@ const Dashboard = () => {
         const data = await fetch(`${apiUrl}`, {
           method: "GET",
         });
-        const response: UserRecord[] = await data.json();
-        console.log(response[0]?.date_joined);
 
-        if (
-          !response ||
-          response.length === 0 ||
-          !localStorage.getItem("usersRecord")
-        ) {
+        const response: UserRecord[] = await data.json();
+        if (!response || response.length === 0) {
           throw new Error("No data found");
         } else {
           const result: UserRecord[] = response.map((item) => {

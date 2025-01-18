@@ -1,9 +1,10 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
+import React from "react";
 
 // Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -18,7 +19,30 @@ Object.defineProperty(window, 'matchMedia', {
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
-  observe() { return null; }
-  unobserve() { return null; }
-  disconnect() { return null; }
+  observe() {
+    return null;
+  }
+  unobserve() {
+    return null;
+  }
+  disconnect() {
+    return null;
+  }
 };
+
+// Mock for images
+jest.mock("\\.svg$", () => "svg-file");
+
+// Mock for ClickAwayListener
+jest.mock("react-click-away-listener", () => ({
+  __esModule: true,
+  default: ({
+    children,
+    onClickAway,
+  }: {
+    children: React.ReactNode;
+    onClickAway: () => void;
+  }) => {
+    return <div onClick={onClickAway}>{children}</div>;
+  },
+}));
