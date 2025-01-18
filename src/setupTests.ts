@@ -1,6 +1,5 @@
 // jest.setup.js
 import "@testing-library/jest-dom";
-import type { JestConfigWithTsJest } from "ts-jest";
 import React from "react";
 
 // Mock matchMedia
@@ -25,11 +24,26 @@ class MockIntersectionObserver implements IntersectionObserver {
   readonly thresholds: ReadonlyArray<number> = [0];
 
   constructor(
-    callback: IntersectionObserverCallback,
-    options?: IntersectionObserverInit
+    private callback: IntersectionObserverCallback,
+    _options?: IntersectionObserverInit
   ) {}
 
-  observe(): void {}
+  observe(target: Element): void {
+    // Optionally, you can call the callback here with mock entries
+    const entries: IntersectionObserverEntry[] = [
+      {
+        boundingClientRect: new DOMRect(),
+        intersectionRatio: 1,
+        intersectionRect: new DOMRect(),
+        isIntersecting: true,
+        rootBounds: new DOMRect(),
+        target,
+        time: Date.now(),
+      } as IntersectionObserverEntry,
+    ];
+    this.callback(entries, this);
+  }
+
   unobserve(): void {}
   disconnect(): void {}
   takeRecords(): IntersectionObserverEntry[] {
@@ -37,7 +51,7 @@ class MockIntersectionObserver implements IntersectionObserver {
   }
 }
 
-global.IntersectionObserver = MockIntersectionObserver;
+global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 // Mock for images
 jest.mock(

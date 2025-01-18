@@ -1,7 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import FilterForm from '../components/FilterForm/FilterForm';
 import { UserRecord } from '../types';
-import { formatDate } from '../utils';
 
 // Mock external dependencies
 jest.mock('lucide-react', () => ({

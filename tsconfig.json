@@ -1,9 +1,4 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
     "target": "esnext",
     "module": "ESNext", // Update this line
@@ -22,5 +17,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*", "src/types/**/*", "src/_mocks_", "src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+  "include": [ "src/**/*.d.ts"]
 }

@@ -1,4 +1,3 @@
-import { UserRecord } from "../../types";
 
 export const testData = [
   {

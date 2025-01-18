@@ -1,7 +1,6 @@
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import PaginatedData from "../components/PaginatedData/PaginatedData";
 import { UserRecord } from "../types";
-import { MoreVertical } from "lucide-react";
 import ClickAwayListener from "react-click-away-listener";
 
 jest.mock("lucide-react", () => ({
