@@ -2,10 +2,11 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts", "ts-jest-mock-import-meta"],
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts", "ts-jest-mock-import-meta"],
   moduleNameMapper: {
     "^.+\\.module\\.(css|scss)$": "identity-obj-proxy",
     "\\.(gif|jpg|jpeg|png|svg)$": "jest-transform-stub",
+    '\\.(svg)$': '<rootDir>/src/__mocks__/fileMock.js'
   },
   transform: {
     "^.+\\.tsx?$": "ts-jest", // Transform TypeScript files
