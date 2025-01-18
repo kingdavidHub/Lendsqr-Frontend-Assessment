@@ -1,3 +1,4 @@
+// jest.setup.js
 import "@testing-library/jest-dom";
 import React from "react";
 
@@ -47,6 +48,7 @@ jest.mock("react-click-away-listener", () => ({
   },
 }));
 
+// Mock import.meta.env
 global.import = {};
 global.import.meta = {
   env: {
