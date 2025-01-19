@@ -5,7 +5,4 @@ interface ToggleContextType {
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ToggleContext = createContext<ToggleContextType>({
- toggle: false
- setTogglw: () => boolean 
-});
+export const ToggleContext = createContext<ToggleContextType | undefined>(undefined});
