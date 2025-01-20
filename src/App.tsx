@@ -9,7 +9,7 @@ import ToggleProvider from "./provider/ToggleProvider";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Helmet } from "react-helmet-async";
 
-const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
+export const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (
     <>
       <Navbar />

@@ -1,73 +1,66 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import App from "../App";
-import { MemoryRouter } from "react-router";
-import { HelmetProvider } from "react-helmet-async";
-import Dashboard from "../pages/Dashboard/Dashboard";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import App from '../App';
+import Layout from '../App';
+import Sidebar from '../components/Sidebar/Sidebar';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import Login from '../pages/Login/Login';
+import UserDetails from '../pages/UserDetails/UserDetails';
+import Error from '../pages/Error/Error';
 
+describe('App Component', () => {
+  const renderWithRouter = (initialEntries: string[]) => {
+    return render(
+      <MemoryRouter initialEntries={initialEntries}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Layout>
+                <Sidebar />
+                <Dashboard />
+              </Layout>
+            }
+          />
+          <Route
+            path="/user/:id/details"
+            element={
+              <Layout>
+                <Sidebar />
+                <UserDetails />
+              </Layout>
+            }
+          />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </MemoryRouter>
+    );
+  };
 
-
-describe("App Component", () => {
-  beforeEach(() => {
-    global.window.history.pushState = vi.fn();
-  })
-  // Positive Scenarios
-  describe("Positive Tests", () => {
-    it("renders login page on root path", () => {
-      render(<App />);
-      expect(screen.getByTestId("login-page")).toBeInTheDocument();
-    });
-
-    // it("renders dashboard with navbar and sidebar", async () => {
-    //   // window.history.pushState("/dashboard");
-      
-
-    //   render(
-    //     // <MemoryRouter initialEntries={["/dashboard"]}>
-    //       // <App />
-    //     // </MemoryRouter>
-    //   );
-
-    //   expect(screen.getByTestId("side-bar")).toBeInTheDocument();
-    //   // expect(screen.getByTestId("dashboard")).toBeInTheDocument();
-    // });
-
-    // it("renders user details page with correct layout", async () => {
-    //   window.history.pushState({}, "", "/user/123/details");
-    //   render(<App />);
-
-    //   expect(screen.getByTestId("navbar")).toBeInTheDocument();
-    //   expect(screen.getByTestId("sidebar")).toBeInTheDocument();
-    //   expect(screen.getByTestId("user-details")).toBeInTheDocument();
-    // });
+  test('renders login page on root path', () => {
+    renderWithRouter(['/']);
+    expect(screen.getByTestId('login-page')).toBeInTheDocument();
   });
 
-  // Negative Scenarios
-  describe("Negative Tests", () => {
-    it("displays error page for invalid routes", () => {
-      const newUrl = "/invalid-route"
+  test('renders dashboard with navbar and sidebar', async () => {
+    renderWithRouter(['/dashboard']);
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('sidebar')).toBeInTheDocument();
+    expect(screen.getByTestId('dashboard-page')).toBeInTheDocument();
+  });
 
-      window.history.pushState({}, "", newUrl);
+  test('renders user details page with correct layout', async () => {
+    renderWithRouter(['/user/123/details']);
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('sidebar')).toBeInTheDocument();
+    expect(screen.getByTestId('user-details')).toBeInTheDocument();
+  });
 
-      expect(window.history.pushState).toHaveBeenCalledWith(newUrl);
-      render(<App />);
-
-      expect(screen.getByTestId("error-page")).toBeInTheDocument();
-    });
-
-  //   it("handles missing user ID in user details route", () => {
-  //     window.history.pushState({}, "", "/user//details");
-  //     render(<App />);
-
-  //     expect(screen.getByTestId("error-page")).toBeInTheDocument();
-  //   });
-
-  //   it("prevents access to protected routes without authentication", () => {
-  //     window.history.pushState({}, "", "/dashboard");
-  //     render(<App />);
-
-  //     expect(screen.getByTestId("login-page")).toBeInTheDocument();
-  //     expect(screen.queryByTestId("dashboard")).not.toBeInTheDocument();
-  //   });
-    })
+  test('renders error page on invalid route', () => {
+    renderWithRouter(['/invalid-route']);
+    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+  });
 });
