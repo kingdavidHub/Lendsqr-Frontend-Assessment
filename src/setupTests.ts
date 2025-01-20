@@ -1,4 +1,3 @@
-// jest.setup.js
 import "@testing-library/jest-dom";
 import React from "react";
 
@@ -18,50 +17,21 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 // Mock IntersectionObserver
-class MockIntersectionObserver implements IntersectionObserver {
-  readonly root: Element | null = null;
-  readonly rootMargin: string = "0px";
-  readonly thresholds: ReadonlyArray<number> = [0];
-
-  constructor(
-    private callback: IntersectionObserverCallback,
-    _options?: IntersectionObserverInit
-  ) {}
-
-  observe(target: Element): void {
-    // Optionally, you can call the callback here with mock entries
-    const entries: IntersectionObserverEntry[] = [
-      {
-        boundingClientRect: new DOMRect(),
-        intersectionRatio: 1,
-        intersectionRect: new DOMRect(),
-        isIntersecting: true,
-        rootBounds: new DOMRect(),
-        target,
-        time: Date.now(),
-      } as IntersectionObserverEntry,
-    ];
-    this.callback(entries, this);
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  observe() {
+    return null;
   }
-
-  unobserve(): void {}
-  disconnect(): void {}
-  takeRecords(): IntersectionObserverEntry[] {
-    return [];
+  unobserve() {
+    return null;
   }
-}
-
-global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+  disconnect() {
+    return null;
+  }
+};
 
 // Mock for images
-jest.mock(
-  "\\.(svg)$",
-  () => ({
-    __esModule: true,
-    default: "svg-file",
-  }),
-  { virtual: true }
-);
+jest.mock("\\.svg$", () => "svg-file");
 
 // Mock for ClickAwayListener
 jest.mock("react-click-away-listener", () => ({
@@ -73,28 +43,6 @@ jest.mock("react-click-away-listener", () => ({
     children: React.ReactNode;
     onClickAway: () => void;
   }) => {
-    return React.createElement("div", { onClick: onClickAway }, children);
+    return <div onClick={onClickAway}>{children}</div>;
   },
 }));
-
-// Mock import.meta.env
-declare global {
-  var importMeta: {
-    meta: {
-      env: {
-        VITE_API_URL: string;
-      };
-    };
-  };
-}
-
-global.importMeta = {
-  meta: {
-    env: {
-      VITE_API_URL: "https://mock-api.example.com",
-    },
-  },
-};
-
-global.TextEncoder = require("util").TextEncoder;
-global.TextDecoder = require("util").TextDecoder;

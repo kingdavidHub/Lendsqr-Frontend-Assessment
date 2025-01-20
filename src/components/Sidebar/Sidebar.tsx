@@ -6,48 +6,46 @@ import classNames from "classnames";
 import styles from "./sidebar.module.scss";
 import { ToggleContext } from "../../context/ToggleContext";
 import { sidebar } from "../../data";
-import { HeadingListProps } from "../../types";
+import { HeadingListProps, ToggleContextType } from "../../types";
 import { v4 as uuidv4 } from "uuid";
 import ClickAwayListener from "react-click-away-listener";
 
 const Sidebar = () => {
-  const toggle = useContext(ToggleContext)?.toggle;
-  const setToggle = useContext(ToggleContext)?.setToggle;
+  const {toggle, setToggle} = useContext(ToggleContext) as ToggleContextType;
 
-  function handleClickAway(){
-    if(typeof setToggle !== "undefined"){
-      setToggle(false);
-    }
-  }
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div className={classNames(styles.sidebar, toggle ? styles.active : "")}>
-      <div className="innerWidth flexCol gap-2">
-        <div className={classNames(styles.organization, "flex padding-left-1")}>
-          <img
-            src={Briefcase}
-            alt="Briefcase Icon"
-            aria-label="Switch Organization"
-          />
-          <span className="secondaryText">Switch Organization</span>
-          <ChevronDown color="#213f7d" aria-label="Expand" />
-        </div>
+      <aside data-testid="side-bar">
+        <div
+          className={classNames(styles.sidebar, toggle ? styles.active : "")}
+        >
+          <div className="innerWidth flexCol gap-2">
+            <div
+              className={classNames(styles.organization, "flex padding-left-1")}
+            >
+              <img
+                src={Briefcase}
+                alt="Briefcase Icon"
+                aria-label="Switch Organization"
+              />
+              <span className="secondaryText">Switch Organization</span>
+              <ChevronDown color="#213f7d" aria-label="Expand" />
+            </div>
 
-        <div className="innerWidth flexStart gap-1 padding-left-1">
-          <img src={HomeIcon} alt="Home Icon" aria-label="Dashboard" />
-          <span className="secondaryText">Dashboard</span>
-        </div>
-      </div>
+            <div className="innerWidth flexStart gap-1 padding-left-1">
+              <img src={HomeIcon} alt="Home Icon" aria-label="Dashboard" />
+              <span className="secondaryText">Dashboard</span>
+            </div>
+          </div>
 
-      <div className="innerWidth margin-1 flexColStart gap-1">
-        {sidebar.map((innerItem) => {
-          return innerItem.map((item) => (
-            <SideBarDetails key={uuidv4()} {...item} />
-          ));
-        })}
-      </div>
-    </div>
-    </ClickAwayListener>
+          <div className="innerWidth margin-1 flexColStart gap-1">
+            {sidebar.map((innerItem) => {
+              return innerItem.map((item) => (
+                <SideBarDetails key={uuidv4()} {...item} />
+              ));
+            })}
+          </div>
+        </div>
+      </aside>
   );
 };
 

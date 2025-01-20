@@ -74,11 +74,8 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <>
-      <Helmet>
-        <title>Lendsqr Dashboard</title>
-      </Helmet>
-      <div className={styles.dashboard}>
+    <main data-testid="dashboard-page" className={styles.dashboard}>
+      <div >
         <h1>Users</h1>
         <div className={styles.metrics}>
           {metrics.map((metric, index) => (
@@ -224,7 +221,7 @@ const Dashboard = () => {
           data-testid="pagination-container"
         />
       </div>
-    </>
+    </main>
   );
 };
 

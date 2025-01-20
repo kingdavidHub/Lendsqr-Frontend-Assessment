@@ -11,6 +11,7 @@ import loanRequestsIcon from "../assets/sidebarIcon/loan-request.svg";
 import npBankIcon from "../assets/sidebarIcon/np_bank.svg";
 import trancationIcon from "../assets/sidebarIcon/transactions.svg";
 import feesChargesIcon from "../assets/sidebarIcon/feesCharges.svg";
+
 import servicesIcon from "../assets/sidebarIcon/services.svg";
 import serviceAccountIcon from "../assets/sidebarIcon/serviceAccount.svg";
 import settlementsIcon from "../assets/sidebarIcon/settlements.svg";

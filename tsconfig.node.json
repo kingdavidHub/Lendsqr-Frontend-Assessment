@@ -4,8 +4,6 @@
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
-    "composite": true,
-    
     "skipLibCheck": true,
 
     /* Bundler mode */

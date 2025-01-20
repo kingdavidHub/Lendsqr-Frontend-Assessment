@@ -4,7 +4,7 @@ import { IoStar } from "react-icons/io5";
 import styles from "./userDetails.module.scss";
 import classNames from "classnames";
 import { IoIosStarOutline } from "react-icons/io";
-import { Link, useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useUserDetailsStorage from "../../hooks/useUserDetailsStorage";
 import { UserRecord } from "../../types";
@@ -26,7 +26,7 @@ const UserDetails = () => {
   ];
 
   return (
-    <>
+    <div data-testid="user-details-page">
       <Helmet>
         {/* possible use template literal and attach the user name to the title from localstorage */}
         <title>{fullName} | Details</title>
@@ -43,7 +43,7 @@ const UserDetails = () => {
           </Link>
 
           <div className={styles.headerActions}>
-            <h1>User Details</h1>
+            <h1 data-testid="user-details-page-header">User Details</h1>
             <div className={styles.buttons}>
               <button
                 className={styles.blacklistBtn}
@@ -232,7 +232,7 @@ const UserDetails = () => {
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

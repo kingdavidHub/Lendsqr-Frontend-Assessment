@@ -1,21 +1,14 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "ESNext", // Update this line
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "types": ["vite/client", "jest", "node", "vitest/globals",],
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "module": "ESNext", // Ensure ES module output
+    "target": "ESNext", // Target a modern JS version
+    "moduleResolution": "node", // Use Node's module resolution strategy
+    "jsx": "react-jsx", // Use JSX for React
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "strict": true, // Enable strict type-checking options
+    "isolatedModules": true, // Ensure each file is treated as a module
+    "types": ["vitest/globals"] // Include Vitest's global types
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "src/**/*.test.tsx"],
+  "exclude": ["node_modules", "dist"]
 }

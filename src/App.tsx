@@ -7,6 +7,7 @@ import UserDetails from "./pages/UserDetails/UserDetails";
 import Error from "./pages/Error/Error";
 import ToggleProvider from "./provider/ToggleProvider";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Helmet } from "react-helmet-async";
 
 const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (
@@ -16,6 +17,14 @@ const Layout = ({ children }: { children: Readonly<React.ReactNode> }) => {
         <div className="container">{children}</div>
       </section>
     </>
+  );
+};
+
+const HelmetContainer = ({ title }: { title: string }) => {
+  return (
+    <Helmet>
+      <title>{title}</title>
+    </Helmet>
   );
 };
 
@@ -45,8 +54,8 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Error />
-  }
+    element: <Error />,
+  },
 ]);
 
 const App = () => {

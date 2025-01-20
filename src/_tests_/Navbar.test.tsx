@@ -3,12 +3,14 @@ import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router";
 import Navbar from "../components/Navbar/Navbar";
 import { ToggleContext } from "../context/ToggleContext";
-import { useResize } from '../hooks/useResize';
+import { act } from "react-dom/test-utils";
 
-// Mock the useResize hook
-jest.mock("../hooks/useResize", () => ({
-  useResize: jest.fn(() => [{ width: 1024, height: 768 }])
-}));
+
+
+const triggerResize = (width: number) => {
+  window.innerWidth = width;
+  window.dispatchEvent(new Event('resize'));
+};
 
 // Mock dependencies
 jest.mock("../assets/lendsqr.svg", () => "lendsqr-logo");
@@ -18,6 +20,40 @@ jest.mock("lucide-react", () => ({
   Menu: () => <div data-testid="menu-icon" />,
   ChevronDown: () => <div data-testid="chevron-down" />,
 }));
+
+// Mock window resize
+global.window.resizeTo = function (width, height) {
+  beforeAll(() => {
+    // Mock window resize methods
+    Object.defineProperty(window, "innerWidth", {
+      writable: true,
+      configurable: true,
+      value: 1024,
+    });
+
+    Object.defineProperty(window, "innerHeight", {
+      writable: true,
+      configurable: true,
+      value: 768,
+    });
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // Reset to desktop size
+    triggerResize(1024);
+  });
+
+  afterEach(() => {
+    // Clean up
+    jest.clearAllMocks();
+  });
+  Object.assign(this, {
+    innerWidth: width,
+    innerHeight: height,
+  });
+  global.window.dispatchEvent(new Event("resize"));
+};
 
 describe("Navbar Component", () => {
   const mockSetToggle = jest.fn();
@@ -36,14 +72,16 @@ describe("Navbar Component", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // Reset the mock implementation of useResize
-    (useResize as jest.Mock).mockImplementation(() => [{ width: 1024, height: 768 }]);
+    // Set default window size
+    window.innerWidth = 1024;
+    window.innerHeight = 768;
   });
-
   it("renders main navbar elements", () => {
     renderNavbar();
     expect(screen.getByAltText("Lendsqr Logo")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Search for anything")).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("Search for anything")
+    ).toBeInTheDocument();
     expect(screen.getByLabelText("Search button")).toBeInTheDocument();
     expect(screen.getByLabelText("Docs")).toBeInTheDocument();
     expect(screen.getByLabelText("Notifications")).toBeInTheDocument();
@@ -63,11 +101,21 @@ describe("Navbar Component", () => {
     expect(screen.getByLabelText("Notifications")).toBeInTheDocument();
   });
 
-  it("renders navbar with search in desktop view", () => {
+  it('hides search box on mobile view', async () => {
     renderNavbar();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
-    expect(screen.getByRole("search")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Search for anything")).toBeInTheDocument();
+    
+    // Desktop view - search box should be visible
+    const searchContainer = screen.getByRole('search');
+    expect(searchContainer).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Search for anything')).toBeInTheDocument();
+    expect(screen.getByLabelText('Search button')).toBeInTheDocument();
+    
+    // Resize to mobile view
+    triggerResize(768);
+    
+    // Mobile view - search box should be hidden
+    await expect(screen.queryByRole('search')).not.toBeInTheDocument();
+    await expect(screen.queryByPlaceholderText('Search for anything')).not.toBeInTheDocument();
+    await expect(screen.queryByLabelText('Search button')).not.toBeInTheDocument();
   });
 });
-
