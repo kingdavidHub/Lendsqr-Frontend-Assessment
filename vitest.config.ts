@@ -5,5 +5,10 @@ export default defineConfig({
     globals: true, // Enables Jest-like globals (e.g., describe, it, expect)
     environment: 'jsdom', // For browser-like testing (use 'node' for backend tests)
     setupFiles: './vitest.setup.ts', // Path to setup file, if any
+    api: {
+     host: false,
+     port: 0,
+     strictPort: false
+    }
   },
 });
